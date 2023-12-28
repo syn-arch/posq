@@ -1,0 +1,86 @@
+/**
+ * Nestable Draggable Handles
+ */
+
+ .dd3-content {
+ 	display: block;
+ 	height: 30px;
+ 	margin: 5px 0;
+ 	padding: 15px 10px 0 60px;
+ 	color: #333;
+ 	text-decoration: none;
+ 	font-weight: bold;
+ 	border: 1px solid #ccc;
+ 	box-sizing: border-box;
+ 	-moz-box-sizing: border-box;
+ }
+
+ .dd-dragel > .dd3-item > .dd3-content {
+ 	margin: 0;
+ }
+
+ .dd3-item > button {
+ 	margin-left: 30px;
+ }
+
+ .dd3-handle {
+ 	position: absolute;
+ 	margin: 0;
+ 	left: 0;
+ 	top: 0;
+ 	cursor: pointer;
+ 	width: 50px;
+ 	text-indent: 30px;
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	border: 1px solid #367fa9;
+ 	border-top-right-radius: 0;
+ 	border-bottom-right-radius: 0;
+ 	border-radius: 0;
+ 	background: #3c8dbc !important;
+ }
+
+ .dd3-handle:before {
+ 	content: '≡';
+ 	display: block;
+ 	position: absolute;
+ 	left: 0;
+ 	top: 15px;
+ 	width: 100%;
+ 	text-align: center;
+ 	text-indent: 0;
+ 	color: #fff;
+ 	font-size: 20px;
+ 	font-weight: normal;
+ }
+
+ .dd3-handle:hover {
+ 	background: #ddd;
+ }
+
+ .dd3-content{
+ 	margin: 15px 0;
+ 	height: 50px;
+ }
+
+ .dd-handle {
+ 	height: 50px;
+ }
+
+.main-header .sidebar-toggle:before {
+    content: "";
+}
+
+.d-inline {
+	display: inline !important;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
