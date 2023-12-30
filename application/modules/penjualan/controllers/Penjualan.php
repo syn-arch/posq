@@ -79,6 +79,7 @@ class Penjualan extends MX_Controller
 
 
             $data['judul'] = 'Detail Penjualan';
+            $data['detail_penjualan'] = $this->db->get_where('detail_penjualan', ['id_penjualan' => $id])->result_array();
 
             $this->load->view('templates/header', $data);
             $this->load->view('penjualan/penjualan_read', $data);
@@ -94,7 +95,13 @@ class Penjualan extends MX_Controller
         cek_akses('d');
 
         foreach ($_POST['data'] as $id) {
-
+            $detail_penjualan = $this->db->get_where('detail_penjualan', ['id_penjualan' => $id])->result_array();
+            foreach ($detail_penjualan as $row) {
+                $this->db->set('stok', 'stok + ' . $row['qty'], FALSE);
+                $this->db->where('id_produk', $row['id_produk']);
+                $this->db->update('produk');
+            }
+            $this->db->delete('detail_penjualan', ['id_penjualan' => $id]);
             $this->db->delete('penjualan', ['id_penjualan' => $id]);
         }
     }
@@ -127,36 +134,17 @@ class Penjualan extends MX_Controller
         $data['marketplace'] = $this->Marketplace_model->get_all();
         $data['status'] = $this->Status_model->get_all();
 
+        $this->form_validation->set_rules('tanggal', 'tanggal', 'required');
+
+        if ($this->form_validation->run()) {
+            $id = $this->Penjualan_model->create($this->input->post());
+            $this->session->set_flashdata('success', 'Ditambah');
+            redirect(site_url('penjualan/read/' . $id));
+        }
+
         $this->load->view('templates/header', $data);
         $this->load->view('penjualan/penjualan_tambah', $data);
         $this->load->view('templates/footer', $data);
-    }
-
-    public function create_action()
-    {
-        $this->_rules();
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->create();
-        } else {
-            $data = array(
-                'id_pelanggan' => $this->input->post('id_pelanggan', TRUE),
-                'id_user' => $this->input->post('id_user', TRUE),
-                'id_marketplace' => $this->input->post('id_marketplace', TRUE),
-                'id_status' => $this->input->post('id_status', TRUE),
-                'nomor_invoice' => $this->input->post('nomor_invoice', TRUE),
-                'tanggal' => $this->input->post('tanggal', TRUE),
-                'sub_total' => $this->input->post('sub_total', TRUE),
-                'diskon' => $this->input->post('diskon', TRUE),
-                'total' => $this->input->post('total', TRUE),
-                'bayar' => $this->input->post('bayar', TRUE),
-                'keterangan' => $this->input->post('keterangan', TRUE),
-            );
-
-            $this->Penjualan_model->insert($data);
-            $this->session->set_flashdata('success', 'Ditambah');
-            redirect(site_url('penjualan'));
-        }
     }
 
     public function update($id)
@@ -172,6 +160,7 @@ class Penjualan extends MX_Controller
                 'id_penjualan' => set_value('id_penjualan', $row->id_penjualan),
                 'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
                 'id_user' => set_value('id_user', $row->id_user),
+                'nama_user' => set_value('nama_user', $row->nama_user),
                 'id_marketplace' => set_value('id_marketplace', $row->id_marketplace),
                 'id_status' => set_value('id_status', $row->id_status),
                 'nomor_invoice' => set_value('nomor_invoice', $row->nomor_invoice),
@@ -188,38 +177,22 @@ class Penjualan extends MX_Controller
             $data['user'] = $this->User_model->get_all();
             $data['marketplace'] = $this->Marketplace_model->get_all();
             $data['status'] = $this->Status_model->get_all();
+            $data['produk'] = $this->Produk_model->get_all();
+            $data['detail_penjualan'] = $this->db->get_where('detail_penjualan', ['id_penjualan' => $id])->result_array();
+
+            $this->form_validation->set_rules('tanggal', 'tanggal', 'required');
+
+            if ($this->form_validation->run()) {
+                $this->Penjualan_model->edit($id, $this->input->post());
+                $this->session->set_flashdata('success', 'Ditambah');
+                redirect(site_url('penjualan'));
+            }
+
             $this->load->view('templates/header', $data);
-            $this->load->view('penjualan/penjualan_form', $data);
+            $this->load->view('penjualan/penjualan_ubah', $data);
             $this->load->view('templates/footer', $data);
         } else {
             $this->session->set_flashdata('error', 'Data tidak ditemukan');
-            redirect(site_url('penjualan'));
-        }
-    }
-
-    public function update_action()
-    {
-        $this->_rules();
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id_penjualan', TRUE));
-        } else {
-            $data = array(
-                'id_pelanggan' => $this->input->post('id_pelanggan', TRUE),
-                'id_user' => $this->input->post('id_user', TRUE),
-                'id_marketplace' => $this->input->post('id_marketplace', TRUE),
-                'id_status' => $this->input->post('id_status', TRUE),
-                'nomor_invoice' => $this->input->post('nomor_invoice', TRUE),
-                'tanggal' => $this->input->post('tanggal', TRUE),
-                'sub_total' => $this->input->post('sub_total', TRUE),
-                'diskon' => $this->input->post('diskon', TRUE),
-                'total' => $this->input->post('total', TRUE),
-                'bayar' => $this->input->post('bayar', TRUE),
-                'keterangan' => $this->input->post('keterangan', TRUE),
-            );
-
-            $this->Penjualan_model->update($this->input->post('id_penjualan', TRUE), $data);
-            $this->session->set_flashdata('success', 'Diubah');
             redirect(site_url('penjualan'));
         }
     }
@@ -237,24 +210,6 @@ class Penjualan extends MX_Controller
             $this->session->set_flashdata('error', 'Data tidak ditemukan');
             redirect(site_url('penjualan'));
         }
-    }
-
-    public function _rules()
-    {
-        $this->form_validation->set_rules('id_pelanggan', 'id pelanggan', 'trim|required|numeric');
-        $this->form_validation->set_rules('id_user', 'id user', 'trim|required|numeric');
-        $this->form_validation->set_rules('id_marketplace', 'id marketplace', 'trim|required|numeric');
-        $this->form_validation->set_rules('id_status', 'id status', 'trim|required|numeric');
-        $this->form_validation->set_rules('nomor_invoice', 'nomor invoice', 'trim|required');
-        $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
-        $this->form_validation->set_rules('sub_total', 'sub total', 'trim|required|numeric');
-        $this->form_validation->set_rules('diskon', 'diskon', 'trim|required|numeric');
-        $this->form_validation->set_rules('total', 'total', 'trim|required|numeric');
-        $this->form_validation->set_rules('bayar', 'bayar', 'trim|required|numeric');
-        $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
-
-        $this->form_validation->set_rules('id_penjualan', 'id_penjualan', 'trim');
-        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function excel()
@@ -280,7 +235,7 @@ class Penjualan extends MX_Controller
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Pelanggan");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id User");
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Sales");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Marketplace");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Status");
         xlsWriteLabel($tablehead, $kolomhead++, "Nomor Invoice");

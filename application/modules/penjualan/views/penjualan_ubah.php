@@ -31,17 +31,17 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <div class="pull-left">
-                        <h4 class="box-title">Invoice : <?= no_invoice() ?></h4>
+                        <h4 class="box-title">Invoice : <?= $nomor_invoice ?></h4>
                         <input type="hidden" name="no_invoice" value="<?= no_invoice() ?>">
                     </div>
                     <div class="pull-right">
-                        <h4 class="box-title">Sales : <?= $this->session->userdata('nama_user') ?></h4>
+                        <h4 class="box-title">Sales : <?= $nama_user ?></h4>
                     </div>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <input type="datetime-local" value="<?= date('Y-m-d H:i:s') ?>" name="tanggal" id="tanggal" class="form-control">
+                            <input type="datetime-local" value="<?= $tanggal ?>" name="tanggal" id="tanggal" class="form-control">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i></button>
                             </span>
@@ -51,7 +51,7 @@
                         <div class="input-group input-group">
                             <select name="id_pelanggan" id="id_pelanggan" class="form-control select2">
                                 <?php foreach ($pelanggan as $row) : ?>
-                                    <option value="<?= $row->id_pelanggan ?>"><?= $row->nama_pelanggan ?></option>
+                                    <option <?= $id_pelanggan == $row->id_pelanggan ? 'selected' : '' ?> value="<?= $row->id_pelanggan ?>"><?= $row->nama_pelanggan ?></option>
                                 <?php endforeach ?>
                             </select>
                             <span class="input-group-btn">
@@ -63,7 +63,7 @@
                         <div class="input-group input-group">
                             <select name="id_marketplace" id="id_marketplace" class="form-control select2">
                                 <?php foreach ($marketplace as $row) : ?>
-                                    <option value="<?= $row->id_marketplace ?>"><?= $row->nama_marketplace ?></option>
+                                    <option <?= $id_marketplace == $row->id_marketplace ? 'selected' : '' ?> value="<?= $row->id_marketplace ?>"><?= $row->nama_marketplace ?></option>
                                 <?php endforeach ?>
                             </select>
                             <span class="input-group-btn">
@@ -75,7 +75,7 @@
                         <div class="input-group input-group">
                             <select name="id_status" id="id_status" class="form-control select2">
                                 <?php foreach ($status as $row) : ?>
-                                    <option value="<?= $row->id_status ?>"><?= $row->nama_status ?></option>
+                                    <option <?= $id_status == $row->id_status ? 'selected' : '' ?> value="<?= $row->id_status ?>"><?= $row->nama_status ?></option>
                                 <?php endforeach ?>
                             </select>
                             <span class="input-group-btn">
@@ -95,34 +95,46 @@
                                 </tr>
                             </thead>
                             <tbody class="penjualan-item">
-
+                                <?php foreach ($detail_penjualan as $index => $detail) : ?>
+                                    <tr data-id="<?= $detail['id_produk'] ?>">
+                                        <input type="hidden" name="id_produk[]" value="<?= $detail['id_produk'] ?>">
+                                        <input type="hidden" name="nama_produk[]" value="<?= $detail['nama_produk'] ?>">
+                                        <input type="hidden" name="harga_modal[]" value="<?= $detail['harga_modal'] ?>">
+                                        <input type="hidden" name="harga_jual[]" value="<?= $detail['harga_jual'] ?>">
+                                        <td width="35%"><?= $detail['nama_produk'] ?></td>
+                                        <td width="15%"><input type="number" class="form-control qty" name="qty[]" autocomplete="off" value="<?= $detail['qty'] ?>" min="0"></td>
+                                        <td class="text-right harga-jual"><?= number_format($detail['harga_jual'], 0, '', '.') ?></td>
+                                        <td class="text-right" width="20%"><input type="text" name="total_harga[]" readonly class="form-control text-right total-harga" value="<?= number_format($detail['total_harga'], 0, '', '.') ?>"></td>
+                                        <td class="text-right" width="10%"><a class="btn btn-danger hapus-cart"><i class="fa fa-trash"></i></a></td>
+                                    </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
                     <table class="table">
                         <tr>
                             <td>Sub Total</td>
-                            <td><input type="text" class="form-control sub-total" value="0" name="sub_total" readonly></td>
+                            <td><input type="text" class="form-control sub-total" value="<?= number_format($sub_total, 0,  '', '.') ?>" name="sub_total" readonly></td>
                         </tr>
                         <tr>
                             <td>Diskon</td>
-                            <td><input type="text" class="form-control diskon" name="diskon" value="0"></td>
+                            <td><input type="text" class="form-control diskon" name="diskon" value="<?= number_format($diskon, 0,  '', '.') ?>"></td>
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td><input type="text" class="form-control total" value="0" name="total" readonly></td>
+                            <td><input type="text" class="form-control total" value="<?= number_format($total, 0,  '', '.') ?>" name="total" readonly></td>
                         </tr>
                         <tr>
                             <td>Bayar</td>
-                            <td><input type="text" class="form-control bayar" placeholder="Bayar" name="bayar" required></td>
+                            <td><input type="text" class="form-control bayar" placeholder="Bayar" name="bayar" value="<?= number_format($bayar, 0,  '', '.') ?>" required></td>
                         </tr>
                         <tr>
                             <td>Kembalian</td>
-                            <td><input type="text" class="form-control kembalian" value="0" name="kembalian" readonly></td>
+                            <td><input type="text" class="form-control kembalian" value="<?= number_format($bayar - $total, 0, '', '.') ?>" name="kembalian" readonly></td>
                         </tr>
                         <tr>
                             <td>Keterangan</td>
-                            <td><textarea name="keterangan" placeholder="Keterangan" id="" cols="30" rows="3" class="form-control"></textarea></td>
+                            <td><textarea name="keterangan" placeholder="Keterangan" id="" cols="30" rows="3" class="form-control"><?= $keterangan ?></textarea></td>
                         </tr>
                         <tr>
                             <td colspan="2">
