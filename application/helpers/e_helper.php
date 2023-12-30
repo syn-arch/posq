@@ -131,8 +131,7 @@ function no_invoice()
     // PLG00001
     $ci = &get_instance();
     $kode = $ci->db->query("SELECT MAX(id_penjualan) as kode from penjualan")->row()->kode;
-    $kode_baru = substr($kode, 3, 7) + 1;
-    return "INV" . sprintf("%07s", $kode_baru);
+    return "INV" . sprintf("%07s", $kode + 1);
 }
 
 function acak($length)

@@ -63,17 +63,18 @@ $access = $this->db->get('akses_role')->row_array();
                             <th>Status</th>
                             <th>Nomor Invoice</th>
                             <th>Tanggal</th>
-                            <th>Sub Total</th>
-                            <th>Diskon</th>
-                            <th>Total</th>
-                            <th>Bayar</th>
+                            <th class="text-right">Sub Total</th>
+                            <th class="text-right">Diskon</th>
+                            <th class="text-right">Total</th>
+                            <th class="text-right">Bayar</th>
                             <th>Keterangan</th>
                             <th>Action</th>
-                        </tr><?php
-                                foreach ($penjualan_data as $penjualan) {
-                                ?>
+                        </tr>
+                        <?php
+                        foreach ($penjualan_data as $penjualan) {
+                        ?>
+                            <?php $status = $this->db->get_where('status',  ['id_status' => $penjualan->id_status])->row(); ?>
                             <tr>
-
                                 <td><?php echo ++$start ?></td>
                                 <?php if ($access['d']) : ?>
                                     <td><input type="checkbox" class="data_checkbox" name="data[]" value="<?php echo $penjualan->id_penjualan ?>"></td>
@@ -81,16 +82,18 @@ $access = $this->db->get('akses_role')->row_array();
                                 <td><?php echo $penjualan->nama_pelanggan ?></td>
                                 <td><?php echo $penjualan->nama_user ?></td>
                                 <td><?php echo $penjualan->nama_marketplace ?></td>
-                                <td><?php echo $penjualan->nama_status ?></td>
+                                <td>
+                                    <button class="btn btn-<?= $status->warna ?>"><?php echo $penjualan->nama_status ?></button>
+                                </td>
                                 <td><?php echo $penjualan->nomor_invoice ?></td>
                                 <td><?php echo $penjualan->tanggal ?></td>
-                                <td><?php echo number_format($penjualan->sub_total, 0, '', '.') ?></td>
-                                <td><?php echo number_format($penjualan->diskon, 0, '', '.') ?></td>
-                                <td><?php echo number_format($penjualan->total, 0, '', '.') ?></td>
-                                <td><?php echo number_format($penjualan->bayar, 0, '', '.') ?></td>
+                                <td class="text-right"><?php echo number_format($penjualan->sub_total, 0, '', '.') ?></td>
+                                <td class="text-right"><?php echo number_format($penjualan->diskon, 0, '', '.') ?></td>
+                                <td class="text-right"><?php echo number_format($penjualan->total, 0, '', '.') ?></td>
+                                <td class="text-right"><?php echo number_format($penjualan->bayar, 0, '', '.') ?></td>
                                 <td><?php echo $penjualan->keterangan ?></td>
                                 <td>
-                                    <a href="<?php echo site_url('penjualan/read/' . $penjualan->id_penjualan) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                                    <a href=" <?php echo site_url('penjualan/read/' . $penjualan->id_penjualan) ?>" class="btn btn-info"><i class="fa fa-eye"></i></a>
                                     <?php if ($access['u']) : ?>
                                         <a href="<?php echo site_url('penjualan/update/' . $penjualan->id_penjualan) ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                     <?php endif ?>
@@ -100,7 +103,7 @@ $access = $this->db->get('akses_role')->row_array();
                                 </td>
                             </tr>
                         <?php
-                                }
+                        }
                         ?>
                     </table>
                 </div>

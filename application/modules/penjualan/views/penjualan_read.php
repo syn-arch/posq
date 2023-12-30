@@ -66,13 +66,13 @@
                                     <?php endforeach ?>
                                     <tr>
                                         <th>Keterangan</th>
-                                        <td><?php echo $keterangan; ?></td>
+                                        <td></td>
                                         <td></td>
                                         <th class="text-right">Sub Total</th>
                                         <td class="text-right"><?= number_format($sub_total, 0, '', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td><?php echo $keterangan; ?></td>
                                         <td></td>
                                         <td></td>
                                         <th class="text-right">Diskon</th>

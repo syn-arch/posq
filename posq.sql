@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2023 at 08:28 AM
--- Server version: 10.4.27-MariaDB
+-- Generation Time: Dec 30, 2023 at 08:17 AM
+-- Server version: 10.4.28-MariaDB
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -56,14 +56,10 @@ INSERT INTO `akses_role` (`akses_role`, `id_menu`, `id_role`, `c`, `u`, `d`) VAL
 (327, 79, 1, 1, 1, 1),
 (328, 80, 1, 0, 0, 0),
 (329, 81, 1, 1, 1, 1),
-(330, 82, 1, 0, 0, 0),
-(331, 83, 1, 1, 1, 1),
 (332, 85, 1, 0, 0, 0),
-(333, 86, 1, 0, 0, 0),
 (334, 87, 1, 0, 0, 0),
 (335, 88, 1, 0, 0, 0),
 (336, 89, 1, 0, 0, 0),
-(337, 90, 1, 0, 0, 0),
 (338, 91, 1, 0, 0, 0),
 (339, 92, 1, 1, 1, 1),
 (340, 93, 1, 1, 1, 1);
@@ -106,13 +102,23 @@ CREATE TABLE `detail_pembelian` (
 CREATE TABLE `detail_penjualan` (
   `id_detail_penjualan` int(11) NOT NULL,
   `id_penjualan` int(11) NOT NULL,
-  `id_barang` int(11) NOT NULL,
-  `nama_barang` varchar(255) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `nama_produk` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
   `harga_modal` int(11) NOT NULL,
   `harga_jual` int(11) NOT NULL,
   `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detail_penjualan`
+--
+
+INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
+(24, 4, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 7, 8000000, 13500000, 94500000),
+(25, 4, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
+(26, 5, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 3, 8000000, 13500000, 40500000),
+(27, 5, 2, 'Laptop Acer Swift 3', 9, 2500000, 4500000, 40500000);
 
 -- --------------------------------------------------------
 
@@ -190,14 +196,10 @@ INSERT INTO `menu` (`id_menu`, `nama_menu`, `icon`, `ada_submenu`, `submenu`, `u
 (79, 'Data Produk', 'fas fa-box-open', 0, 88, 'produk', 4, 1),
 (80, 'Penjualan Baru', 'fas fa-cart-arrow-down', 0, 89, 'penjualan/create', 1, 0),
 (81, 'Riwayat Penjualan', 'fas fa-shopping-cart', 0, 89, 'penjualan', 2, 1),
-(82, 'Pembelian Baru', 'fas fa-cart-plus', 0, 90, 'pembelian/tambah', 1, 0),
-(83, 'Riwayat Pembelian', 'fas fa-shopping-cart', 0, 90, 'pembelian', 2, 1),
 (85, 'Laporan Penjualan', 'fas fa-book', 0, 91, 'laporan/penjualan', 1, 0),
-(86, 'Laporan Pembelian', 'fas fa-book', 0, 91, 'laporan/pembelian', 2, 0),
 (87, 'Sales', 'fas fa-user-circle', 1, 0, '#', 2, 0),
 (88, 'Master', 'fas fa-check-circle', 1, 0, '#', 3, 0),
 (89, 'Penjualan', 'fas fa-cart-arrow-down', 1, 0, '#', 4, 0),
-(90, 'Pembelian', 'fas fa-cart-plus', 1, 0, '#', 5, 0),
 (91, 'Laporan', 'fas fa-book', 1, 0, '#', 6, 0),
 (92, 'Data Marketplace', 'fas fa-store', 0, 88, 'marketplace', 5, 1),
 (93, 'Status Pesanan', 'fas fa-shapes', 0, 88, 'status', 6, 1);
@@ -287,6 +289,14 @@ CREATE TABLE `penjualan` (
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `penjualan`
+--
+
+INSERT INTO `penjualan` (`id_penjualan`, `id_pelanggan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`) VALUES
+(4, 1, 0, 1, 1, 'INV0000001', '2023-12-30 06:52:59', 99000000, 0, 99000000, 100000000, ''),
+(5, 1, 0, 2, 1, 'INV0000005', '2023-12-30 06:53:43', 81000000, 0, 81000000, 81000000, '');
+
 -- --------------------------------------------------------
 
 --
@@ -309,8 +319,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 100, '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
-(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 100, 'default.png', '');
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 90, '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 90, 'default.png', '');
 
 -- --------------------------------------------------------
 
@@ -347,9 +357,9 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`id_status`, `nama_status`, `warna`) VALUES
-(1, 'Pesanan Baru', 'btn btn-info'),
-(2, 'Diproses', 'btn btn-warning'),
-(3, 'Terkirim', 'btn btn-success');
+(1, 'Pesanan Baru', 'info'),
+(2, 'Diproses', 'warning'),
+(3, 'Terkirim', 'success');
 
 -- --------------------------------------------------------
 
@@ -542,7 +552,7 @@ ALTER TABLE `detail_pembelian`
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -584,7 +594,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `produk`
