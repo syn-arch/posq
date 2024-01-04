@@ -19,10 +19,6 @@
                     <div class="col-md-4">
                         <table class="table">
                             <tr>
-                                <td>Pelanggan</td>
-                                <td><?php echo $nama_pelanggan; ?></td>
-                            </tr>
-                            <tr>
                                 <td>Sales</td>
                                 <td><?php echo $nama_user; ?></td>
                             </tr>
@@ -31,12 +27,32 @@
                                 <td><?php echo $nama_marketplace; ?></td>
                             </tr>
                             <tr>
+                                <td>No Pesanan</td>
+                                <td><?php echo $no_pesanan; ?></td>
+                            </tr>
+                            <tr>
                                 <td>Status</td>
                                 <td><?php echo $nama_status; ?></td>
                             </tr>
                             <tr>
                                 <td>Tanggal</td>
                                 <td><?php echo $tanggal; ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table">
+                            <tr>
+                                <td>Nama Pelanggan</td>
+                                <td><?php echo $nama_pelanggan; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td><?php echo $alamat; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Telepon</td>
+                                <td><?php echo $telepon; ?></td>
                             </tr>
                         </table>
                     </div>
@@ -59,9 +75,9 @@
                                         <tr>
                                             <td><?= $index + 1 ?></td>
                                             <td><?= $detail['nama_produk'] ?></td>
-                                            <td class="text-right"><?= number_format($detail['harga_jual'], 2, '', '.') ?></td>
+                                            <td class="text-right"><?= number_format($detail['harga_jual'], 0, '', '.') ?></td>
                                             <td class="text-right"><?= $detail['qty'] ?></td>
-                                            <td class="text-right"><?= number_format($detail['total_harga'], 2, '', '.') ?></td>
+                                            <td class="text-right"><?= number_format($detail['total_harga'], 0, '', '.') ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                     <tr>

@@ -10,7 +10,6 @@ class Penjualan extends MX_Controller
         parent::__construct();
         require FCPATH . 'vendor/autoload.php';
         $this->load->model('Penjualan_model');
-        $this->load->model('pelanggan/Pelanggan_model');
         $this->load->model('user/User_model');
         $this->load->model('produk/Produk_model');
         $this->load->model('marketplace/Marketplace_model');
@@ -31,10 +30,14 @@ class Penjualan extends MX_Controller
             $config['first_url'] = base_url() . 'penjualan/index.html';
         }
 
+        $dari = $this->input->get('dari');
+        $sampai = $this->input->get('sampai');
+        $id_status = $this->input->get('id_status');
+
         $config['per_page'] = 10;
         $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Penjualan_model->total_rows($q);
-        $penjualan = $this->Penjualan_model->get_limit_data($config['per_page'], $start, $q);
+        $config['total_rows'] = $this->Penjualan_model->total_rows($q, $dari, $sampai, $id_status);
+        $penjualan = $this->Penjualan_model->get_limit_data($config['per_page'], $start, $q, $dari, $sampai, $id_status);
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);
@@ -48,6 +51,7 @@ class Penjualan extends MX_Controller
         );
 
         $data['judul'] = 'Riwayat Penjualan';
+        $data['data_status'] = $this->Status_model->get_all();
 
         $this->load->view('templates/header', $data);
         $this->load->view('penjualan/penjualan_list', $data);
@@ -57,10 +61,10 @@ class Penjualan extends MX_Controller
     public function read($id)
     {
         $row = $this->Penjualan_model->get_by_id($id);
+
         if ($row) {
             $data = array(
                 'id_penjualan' => $row->id_penjualan,
-                'id_pelanggan' => $row->id_pelanggan,
                 'id_user' => $row->id_user,
                 'id_marketplace' => $row->id_marketplace,
                 'id_status' => $row->id_status,
@@ -75,6 +79,9 @@ class Penjualan extends MX_Controller
                 'nama_user' => $row->nama_user,
                 'nama_marketplace' => $row->nama_marketplace,
                 'nama_status' => $row->nama_status,
+                'no_pesanan' => $row->no_pesanan,
+                'alamat' => $row->alamat,
+                'telepon' => $row->telepon,
             );
 
 
@@ -106,6 +113,17 @@ class Penjualan extends MX_Controller
         }
     }
 
+    public function update_bulk()
+    {
+        cek_akses('u');
+
+        foreach ($_POST['data'] as $id) {
+            $this->db->set('id_status', $_POST['id_status']);
+            $this->db->where('id_penjualan', $id);
+            $this->db->update('penjualan');
+        }
+    }
+
     public function create()
     {
         cek_akses('c');
@@ -114,7 +132,6 @@ class Penjualan extends MX_Controller
             'button' => 'Create',
             'action' => site_url('penjualan/create_action'),
             'id_penjualan' => set_value('id_penjualan'),
-            'id_pelanggan' => set_value('id_pelanggan'),
             'id_user' => set_value('id_user'),
             'id_marketplace' => set_value('id_marketplace'),
             'id_status' => set_value('id_status'),
@@ -128,7 +145,6 @@ class Penjualan extends MX_Controller
         );
 
         $data['judul'] = 'Penjualan Baru';
-        $data['pelanggan'] = $this->Pelanggan_model->get_all();
         $data['user'] = $this->User_model->get_all();
         $data['produk'] = $this->Produk_model->get_all();
         $data['marketplace'] = $this->Marketplace_model->get_all();
@@ -158,7 +174,6 @@ class Penjualan extends MX_Controller
                 'button' => 'Update',
                 'action' => site_url('penjualan/update_action'),
                 'id_penjualan' => set_value('id_penjualan', $row->id_penjualan),
-                'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
                 'id_user' => set_value('id_user', $row->id_user),
                 'nama_user' => set_value('nama_user', $row->nama_user),
                 'id_marketplace' => set_value('id_marketplace', $row->id_marketplace),
@@ -170,10 +185,13 @@ class Penjualan extends MX_Controller
                 'total' => set_value('total', $row->total),
                 'bayar' => set_value('bayar', $row->bayar),
                 'keterangan' => set_value('keterangan', $row->keterangan),
+                'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
+                'alamat' => set_value('alamat', $row->alamat),
+                'telepon' => set_value('telepon', $row->telepon),
+                'no_pesanan' => set_value('no_pesanan', $row->no_pesanan),
             );
 
             $data['judul'] = 'Ubah Penjualan';
-            $data['pelanggan'] = $this->Pelanggan_model->get_all();
             $data['user'] = $this->User_model->get_all();
             $data['marketplace'] = $this->Marketplace_model->get_all();
             $data['status'] = $this->Status_model->get_all();
@@ -234,7 +252,6 @@ class Penjualan extends MX_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id Pelanggan");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Sales");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Marketplace");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Status");
@@ -251,7 +268,6 @@ class Penjualan extends MX_Controller
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-            xlsWriteNumber($tablebody, $kolombody++, $data->id_pelanggan);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_user);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_marketplace);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_status);

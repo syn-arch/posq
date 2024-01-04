@@ -20,10 +20,13 @@ class Penjualan_model extends CI_Model
         $this->db->trans_begin();
 
         $this->db->insert('penjualan', [
-            'id_pelanggan' => $post['id_pelanggan'],
             'id_user' => $this->session->userdata('id_user'),
             'id_marketplace' => $post['id_marketplace'],
             'id_status' => $post['id_status'],
+            'no_pesanan' => $post['no_pesanan'],
+            'nama_pelanggan' => $post['nama_pelanggan'],
+            'alamat' => $post['alamat'],
+            'telepon' => $post['telepon'],
             'nomor_invoice' => $post['no_invoice'],
             'tanggal' => $post['tanggal'],
             'sub_total' => str_replace('.', '', $post['sub_total']),
@@ -62,10 +65,13 @@ class Penjualan_model extends CI_Model
 
         $this->db->where('id_penjualan', $id);
         $this->db->update('penjualan', [
-            'id_pelanggan' => $post['id_pelanggan'],
             'id_user' => $this->session->userdata('id_user'),
             'id_marketplace' => $post['id_marketplace'],
             'id_status' => $post['id_status'],
+            'no_pesanan' => $post['no_pesanan'],
+            'nama_pelanggan' => $post['nama_pelanggan'],
+            'alamat' => $post['alamat'],
+            'telepon' => $post['telepon'],
             'nomor_invoice' => $post['no_invoice'],
             'tanggal' => $post['tanggal'],
             'sub_total' => str_replace('.', '', $post['sub_total']),
@@ -106,8 +112,7 @@ class Penjualan_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->select('*, pelanggan.id_pelanggan,user.id_user,marketplace.id_marketplace,status.id_status');
-        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = penjualan.id_pelanggan', 'left');
+        $this->db->select('*, user.id_user,marketplace.id_marketplace,status.id_status, penjualan.alamat, penjualan.telepon');
         $this->db->join('user', 'user.id_user = penjualan.id_user', 'left');
         $this->db->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
         $this->db->join('status', 'status.id_status = penjualan.id_status', 'left');
@@ -118,8 +123,7 @@ class Penjualan_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
-        $this->db->select('*, pelanggan.id_pelanggan,user.id_user,marketplace.id_marketplace,status.id_status');
-        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = penjualan.id_pelanggan', 'left');
+        $this->db->select('*, user.id_user,marketplace.id_marketplace,status.id_status, penjualan.alamat, penjualan.telepon');
         $this->db->join('user', 'user.id_user = penjualan.id_user', 'left');
         $this->db->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
         $this->db->join('status', 'status.id_status = penjualan.id_status', 'left');
@@ -128,50 +132,46 @@ class Penjualan_model extends CI_Model
     }
 
     // get total rows
-    function total_rows($q = NULL)
+    function total_rows($q = NULL, $dari = '', $sampai = '', $id_status = '')
     {
-        $this->db->like('id_penjualan', $q);
-        $this->db->select('*, pelanggan.id_pelanggan,user.id_user,marketplace.id_marketplace,status.id_status');
-        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = penjualan.id_pelanggan', 'left');
+        $this->db->select('*, penjualan.alamat, penjualan.telepon');
         $this->db->join('user', 'user.id_user = penjualan.id_user', 'left');
         $this->db->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
         $this->db->join('status', 'status.id_status = penjualan.id_status', 'left');
-        $this->db->or_like('pelanggan.id_pelanggan', $q);
-        $this->db->or_like('user.id_user', $q);
-        $this->db->or_like('marketplace.id_marketplace', $q);
-        $this->db->or_like('status.id_status', $q);
-        $this->db->or_like('nomor_invoice', $q);
-        $this->db->or_like('tanggal', $q);
-        $this->db->or_like('sub_total', $q);
-        $this->db->or_like('diskon', $q);
-        $this->db->or_like('total', $q);
-        $this->db->or_like('bayar', $q);
-        $this->db->or_like('keterangan', $q);
+        if ($dari && $sampai) {
+            $this->db->where('DATE(tanggal) >=', $dari);
+            $this->db->where('DATE(tanggal) <=', $sampai);
+        }
+        if ($id_status) {
+            $this->db->where('penjualan.id_status', $id_status);
+        }
+        if ($q) {
+            $this->db->or_like('nomor_invoice', $q);
+            $this->db->or_like('no_pesanan', $q);
+        }
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL)
+    function get_limit_data($limit, $start = 0, $q = NULL, $dari = '', $sampai = '', $id_status = '')
     {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id_penjualan', $q);
-        $this->db->select('*, pelanggan.id_pelanggan,user.id_user,marketplace.id_marketplace,status.id_status');
-        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = penjualan.id_pelanggan', 'left');
+        $this->db->select('*, penjualan.alamat, penjualan.telepon');
         $this->db->join('user', 'user.id_user = penjualan.id_user', 'left');
         $this->db->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
         $this->db->join('status', 'status.id_status = penjualan.id_status', 'left');
-        $this->db->or_like('pelanggan.id_pelanggan', $q);
-        $this->db->or_like('user.id_user', $q);
-        $this->db->or_like('marketplace.id_marketplace', $q);
-        $this->db->or_like('status.id_status', $q);
-        $this->db->or_like('nomor_invoice', $q);
-        $this->db->or_like('tanggal', $q);
-        $this->db->or_like('sub_total', $q);
-        $this->db->or_like('diskon', $q);
-        $this->db->or_like('total', $q);
-        $this->db->or_like('bayar', $q);
-        $this->db->or_like('keterangan', $q);
+        if ($dari && $sampai) {
+            $this->db->where('DATE(tanggal) >=', $dari);
+            $this->db->where('DATE(tanggal) <=', $sampai);
+        }
+        if ($id_status) {
+            $this->db->where('penjualan.id_status', $id_status);
+        }
+        if ($q) {
+            $this->db->or_like('nomor_invoice', $q);
+            $this->db->or_like('no_pesanan', $q);
+        }
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

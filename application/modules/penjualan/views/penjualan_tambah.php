@@ -1,7 +1,7 @@
 <style>
     .penjualan-item {
         display: block;
-        height: 250px;
+        height: 450px;
         overflow: auto;
     }
 
@@ -31,17 +31,13 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <div class="pull-left">
-                        <h4 class="box-title">Invoice : <?= no_invoice() ?></h4>
-                        <input type="hidden" name="no_invoice" value="<?= no_invoice() ?>">
-                    </div>
-                    <div class="pull-right">
                         <h4 class="box-title">Sales : <?= $this->session->userdata('nama_user') ?></h4>
                     </div>
                 </div>
                 <div class="box-body">
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <input type="datetime-local" value="<?= date('Y-m-d H:i:s') ?>" name="tanggal" id="tanggal" class="form-control">
+                            <input autocomplete="off" type="text" value="" name="no_invoice" id="no_invoice" class="form-control" placeholder="No Invoice">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i></button>
                             </span>
@@ -49,19 +45,36 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <select name="id_pelanggan" id="id_pelanggan" class="form-control select2">
-                                <?php foreach ($pelanggan as $row) : ?>
-                                    <option value="<?= $row->id_pelanggan ?>"><?= $row->nama_pelanggan ?></option>
-                                <?php endforeach ?>
-                            </select>
+                            <input autocomplete="off" type="text" value="" name="no_pesanan" id="no_pesanan" class="form-control" placeholder="No Pesanan">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-user-check"></i></button>
+                                <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input autocomplete="off" type="text" value="" name="nama_pelanggan" id="nama_pelanggan" class="form-control" placeholder="Nama Pelanggan">
+                            </div>
+                            <div class="col-md-4">
+                                <input autocomplete="off" type="text" value="" name="alamat" id="alamat" class="form-control" placeholder="Alamat">
+                            </div>
+                            <div class="col-md-4">
+                                <input autocomplete="off" type="text" value="" name="telepon" id="telepon" class="form-control" placeholder="Telepon">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group input-group">
+                            <input autocomplete="off" type="datetime-local" value="<?= date('Y-m-d H:i:s') ?>" name="tanggal" id="tanggal" class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i></button>
                             </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <select name="id_marketplace" id="id_marketplace" class="form-control select2">
+                            <select name="id_marketplace" id="id_marketplace" class="form-control">
                                 <?php foreach ($marketplace as $row) : ?>
                                     <option value="<?= $row->id_marketplace ?>"><?= $row->nama_marketplace ?></option>
                                 <?php endforeach ?>
@@ -73,7 +86,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <select name="id_status" id="id_status" class="form-control select2">
+                            <select name="id_status" id="id_status" class="form-control">
                                 <?php foreach ($status as $row) : ?>
                                     <option value="<?= $row->id_status ?>"><?= $row->nama_status ?></option>
                                 <?php endforeach ?>
