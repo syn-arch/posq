@@ -37,7 +37,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <input autocomplete="off" type="text" value="" name="no_invoice" id="no_invoice" class="form-control" placeholder="No Invoice">
+                            <input autocomplete="off" type="text" name="no_invoice" id="no_invoice" class="form-control" placeholder="No Invoice" value="<?= no_invoice() ?>">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i></button>
                             </span>
@@ -108,7 +108,6 @@
                                 </tr>
                             </thead>
                             <tbody class="penjualan-item">
-
                             </tbody>
                         </table>
                     </div>

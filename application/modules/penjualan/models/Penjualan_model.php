@@ -17,6 +17,13 @@ class Penjualan_model extends CI_Model
 
     function create($post)
     {
+        $penjualan = $this->db->get_where('penjualan', ['nomor_invoice' => $post['no_invoice']])->row();
+
+        if ($penjualan) {
+            $this->session->set_flashdata('error', 'No Invoice Telah Digunakan');
+            redirect(site_url('penjualan/create'));
+        }
+
         $this->db->trans_begin();
 
         $this->db->insert('penjualan', [
@@ -110,12 +117,19 @@ class Penjualan_model extends CI_Model
     }
 
     // get all
-    function get_all()
+    function get_all($dari = '', $sampai = '', $id_status = '')
     {
         $this->db->select('*, user.id_user,marketplace.id_marketplace,status.id_status, penjualan.alamat, penjualan.telepon');
         $this->db->join('user', 'user.id_user = penjualan.id_user', 'left');
         $this->db->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
         $this->db->join('status', 'status.id_status = penjualan.id_status', 'left');
+        if ($dari && $sampai) {
+            $this->db->where('DATE(tanggal) >=', $dari);
+            $this->db->where('DATE(tanggal) <=', $sampai);
+        }
+        if ($id_status) {
+            $this->db->where('penjualan.id_status', $id_status);
+        }
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
@@ -173,6 +187,7 @@ class Penjualan_model extends CI_Model
             $this->db->or_like('no_pesanan', $q);
         }
         $this->db->limit($limit, $start);
+        $this->db->order_by($this->id, 'DESC');
         return $this->db->get($this->table)->result();
     }
 

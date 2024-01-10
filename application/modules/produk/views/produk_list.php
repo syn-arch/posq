@@ -45,6 +45,7 @@ $access = $this->db->get('akses_role')->row_array();
                                 <?php endif ?>
                                 <th>Nama Kategori</th>
                                 <th>Nama Produk</th>
+                                <th>Satuan</th>
                                 <th>Harga Modal</th>
                                 <th>Harga Jual</th>
                                 <th>Stok</th>
@@ -119,6 +120,8 @@ $access = $this->db->get('akses_role')->row_array();
                         }, {
                             "data": "nama_produk"
                         }, {
+                            "data": "satuan"
+                        }, {
                             "data": "harga_modal",
                             "render": function(data, type, row, meta) {
                                 return rupiah(data)
@@ -184,6 +187,8 @@ $access = $this->db->get('akses_role')->row_array();
                             "data": "nama_kategori"
                         }, {
                             "data": "nama_produk"
+                        }, {
+                            "data": "satuan"
                         }, {
                             "data": "harga_modal",
                             "render": function(data, type, row, meta) {
@@ -256,6 +261,8 @@ $access = $this->db->get('akses_role')->row_array();
                         }, {
                             "data": "nama_produk"
                         }, {
+                            "data": "satuan"
+                        }, {
                             "data": "harga_modal",
                             "render": function(data, type, row, meta) {
                                 return rupiah(data)
@@ -321,6 +328,8 @@ $access = $this->db->get('akses_role')->row_array();
                             "data": "nama_kategori"
                         }, {
                             "data": "nama_produk"
+                        }, {
+                            "data": "satuan"
                         }, {
                             "data": "harga_modal",
                             "render": function(data, type, row, meta) {

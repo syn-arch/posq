@@ -33,6 +33,11 @@
                                 <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk" value="<?php echo $nama_produk; ?>" />
                                 <?php echo form_error('nama_produk', '<small style="color:red">', '</small>') ?>
                             </div>
+                            <div class="form-group <?php if (form_error('satuan')) echo 'has-error' ?> ">
+                                <label for="satuan">Satuan</label>
+                                <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />
+                                <?php echo form_error('satuan', '<small style="color:red">', '</small>') ?>
+                            </div>
                             <div class="form-group <?php if (form_error('harga_modal')) echo 'has-error' ?> ">
                                 <label for="harga_modal">Harga Modal</label>
                                 <input type="text" class="form-control" name="harga_modal" id="harga_modal" placeholder="Harga Modal" value="<?php echo $harga_modal; ?>" />

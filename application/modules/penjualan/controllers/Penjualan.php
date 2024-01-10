@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Penjualan extends MX_Controller
 {
@@ -230,7 +229,7 @@ class Penjualan extends MX_Controller
         }
     }
 
-    public function excel()
+    public function excel($dari = '', $sampai = '', $id_status = '')
     {
         $this->load->helper('exportexcel');
         $namaFile = "penjualan.xls";
@@ -263,12 +262,12 @@ class Penjualan extends MX_Controller
         xlsWriteLabel($tablehead, $kolomhead++, "Bayar");
         xlsWriteLabel($tablehead, $kolomhead++, "Keterangan");
 
-        foreach ($this->Penjualan_model->get_all() as $data) {
+        foreach ($this->Penjualan_model->get_all($dari, $sampai, $id_status) as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-            xlsWriteNumber($tablebody, $kolombody++, $data->id_user);
+            xlsWriteLabel($tablebody, $kolombody++, $data->id_user);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_marketplace);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_status);
             xlsWriteLabel($tablebody, $kolombody++, $data->nomor_invoice);
@@ -287,10 +286,10 @@ class Penjualan extends MX_Controller
         exit();
     }
 
-    function pdf()
+    function pdf($dari = '', $sampai = '', $id_status = '')
     {
         $data = array(
-            'penjualan_data' => $this->Penjualan_model->get_all(),
+            'penjualan_data' => $this->Penjualan_model->get_all($dari, $sampai, $id_status),
             'start' => 0
         );
 

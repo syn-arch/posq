@@ -147,7 +147,7 @@ $access = $this->db->get('akses_role')->row_array();
                 <div class="row">
                     <div class="col-md-6">
                         <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-                        <?php echo anchor(site_url('penjualan/excel'), 'Excel', 'class="btn btn-primary"'); ?>
+                        <?php echo anchor(site_url('penjualan/excel/' . $this->input->get('dari') . '/' . $this->input->get('sampai') . '/' . $this->input->get('id_status') ), 'Excel', 'class="btn btn-primary"'); ?>
                         <?php echo anchor(site_url('penjualan/pdf'), 'PDF', 'class="btn btn-primary"'); ?>
 
                     </div>
