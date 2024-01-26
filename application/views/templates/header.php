@@ -47,7 +47,7 @@ if (!$user) {
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini <?= $this->uri->segment(1) == 'penjualan' ? 'sidebar-collapse' : '' ?>">
+<body class="hold-transition skin-blue sidebar-mini <?= $this->uri->segment(1) == 'penjualan' || $this->uri->segment(1) == 'pembelian'  ? 'sidebar-collapse' : '' ?>">
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -175,11 +175,13 @@ if (!$user) {
             <!-- Content Header (Page header) -->
 
             <?php if ($this->uri->segment(1) != 'penjualan') : ?>
-                <section class="content-header">
-                    <h1>
-                        <?php echo $judul ?>
-                    </h1>
-                </section>
+                <?php if ($this->uri->segment(1) != 'pembelian') : ?>
+                    <section class="content-header">
+                        <h1>
+                            <?php echo $judul ?>
+                        </h1>
+                    </section>
+                <?php endif ?>
             <?php endif ?>
 
             <section class="content container-fluid">

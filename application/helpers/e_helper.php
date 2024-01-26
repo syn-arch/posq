@@ -126,12 +126,19 @@ function autoID($str, $table)
     return $str . sprintf("%05s", $kode_baru);
 }
 
-function no_invoice()
+function no_invoice($pembelian = false)
 {
-    // PLG00001
-    $ci = &get_instance();
-    $kode = $ci->db->query("SELECT MAX(id_penjualan) as kode from penjualan")->row()->kode;
-    return "INV" . sprintf("%07s", $kode + 1);
+    if($pembelian == true)
+    {
+        $ci = &get_instance();
+        $kode = $ci->db->query("SELECT MAX(id_pembelian) as kode from pembelian")->row()->kode;
+        return "INV" . sprintf("%07s", $kode + 1);
+    }else{
+        $ci = &get_instance();
+        $kode = $ci->db->query("SELECT MAX(id_penjualan) as kode from penjualan")->row()->kode;
+        return "INV" . sprintf("%07s", $kode + 1);
+    }
+    
 }
 
 function acak($length)

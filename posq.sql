@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2024 at 12:43 PM
+-- Generation Time: Jan 26, 2024 at 02:03 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -41,27 +41,32 @@ CREATE TABLE `akses_role` (
 --
 
 INSERT INTO `akses_role` (`akses_role`, `id_menu`, `id_role`, `c`, `u`, `d`) VALUES
-(315, 1, 1, 0, 0, 0),
-(316, 10, 1, 1, 1, 1),
-(317, 11, 1, 0, 0, 0),
-(318, 22, 1, 0, 0, 0),
-(319, 23, 1, 0, 0, 0),
-(320, 24, 1, 0, 0, 0),
-(321, 27, 1, 0, 0, 0),
-(322, 62, 1, 0, 0, 0),
-(323, 64, 1, 0, 0, 0),
-(325, 77, 1, 1, 1, 1),
-(326, 78, 1, 1, 1, 1),
-(327, 79, 1, 1, 1, 1),
-(328, 80, 1, 0, 0, 0),
-(329, 81, 1, 1, 1, 1),
-(332, 85, 1, 0, 0, 0),
-(334, 87, 1, 0, 0, 0),
-(335, 88, 1, 0, 0, 0),
-(336, 89, 1, 0, 0, 0),
-(338, 91, 1, 0, 0, 0),
-(339, 92, 1, 1, 1, 1),
-(340, 93, 1, 1, 1, 1);
+(416, 1, 1, 0, 0, 0),
+(417, 10, 1, 1, 1, 1),
+(418, 11, 1, 0, 0, 0),
+(419, 22, 1, 0, 0, 0),
+(420, 23, 1, 0, 0, 0),
+(421, 24, 1, 0, 0, 0),
+(422, 27, 1, 0, 0, 0),
+(423, 62, 1, 0, 0, 0),
+(424, 64, 1, 0, 0, 0),
+(425, 76, 1, 1, 1, 1),
+(426, 77, 1, 1, 1, 1),
+(427, 78, 1, 1, 1, 1),
+(428, 79, 1, 1, 1, 1),
+(429, 80, 1, 0, 0, 0),
+(430, 81, 1, 1, 1, 1),
+(431, 85, 1, 0, 0, 0),
+(432, 87, 1, 0, 0, 0),
+(433, 88, 1, 0, 0, 0),
+(434, 89, 1, 0, 0, 0),
+(435, 91, 1, 0, 0, 0),
+(436, 92, 1, 1, 1, 1),
+(437, 93, 1, 1, 1, 1),
+(438, 94, 1, 0, 0, 0),
+(439, 95, 1, 0, 0, 0),
+(440, 96, 1, 1, 1, 1),
+(441, 97, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -84,13 +89,21 @@ CREATE TABLE `backup` (
 CREATE TABLE `detail_pembelian` (
   `id_detail_pembelian` int(11) NOT NULL,
   `id_pembelian` int(11) NOT NULL,
-  `id_barang` int(11) NOT NULL,
-  `nama_barang` varchar(255) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `nama_produk` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
   `harga_modal` int(11) NOT NULL,
   `harga_jual` int(11) NOT NULL,
   `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail_pembelian`
+--
+
+INSERT INTO `detail_pembelian` (`id_detail_pembelian`, `id_pembelian`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
+(1, 1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 10, 8000000, 13500000, 135000000),
+(2, 2, 2, 'Laptop Acer Swift 3', 6, 2500000, 4500000, 27000000);
 
 -- --------------------------------------------------------
 
@@ -116,7 +129,10 @@ CREATE TABLE `detail_penjualan` (
 INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
 (42, 6, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
 (43, 6, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
-(44, 7, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 4, 8000000, 13500000, 54000000);
+(44, 7, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 4, 8000000, 13500000, 54000000),
+(45, 8, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 5, 8000000, 13500000, 67500000),
+(46, 8, 2, 'Laptop Acer Swift 3', 4, 2500000, 4500000, 18000000),
+(47, 9, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000);
 
 -- --------------------------------------------------------
 
@@ -200,7 +216,11 @@ INSERT INTO `menu` (`id_menu`, `nama_menu`, `icon`, `ada_submenu`, `submenu`, `u
 (89, 'Penjualan', 'fas fa-cart-arrow-down', 1, 0, '#', 4, 0),
 (91, 'Laporan', 'fas fa-book', 1, 0, '#', 6, 0),
 (92, 'Data Marketplace', 'fas fa-store', 0, 88, 'marketplace', 5, 1),
-(93, 'Status Pesanan', 'fas fa-shapes', 0, 88, 'status', 6, 1);
+(93, 'Status Pesanan', 'fas fa-shapes', 0, 88, 'status', 6, 1),
+(94, 'Pembelian', 'fas fa-cart-plus', 1, 0, '#', 5, 0),
+(95, 'Pembelian Baru', 'fas fa-cart-plus', 0, 94, 'pembelian/create', 1, 0),
+(96, 'Riwayat Pembelian', 'fas fa-cart-plus', 0, 94, 'pembelian', 2, 1),
+(97, 'Laporan Pembelian', 'fas fa-book', 0, 91, 'laporan/pembelian', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -232,7 +252,13 @@ INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat`, `no_telepon
 CREATE TABLE `pembelian` (
   `id_pembelian` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `id_marketplace` int(11) NOT NULL,
+  `id_status` int(11) NOT NULL,
   `nomor_invoice` varchar(255) NOT NULL,
+  `no_pesanan` varchar(255) NOT NULL,
+  `nama_pelanggan` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `telepon` varchar(255) NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `sub_total` int(11) NOT NULL,
   `diskon` int(11) NOT NULL,
@@ -240,6 +266,14 @@ CREATE TABLE `pembelian` (
   `bayar` int(11) NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pembelian`
+--
+
+INSERT INTO `pembelian` (`id_pembelian`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`) VALUES
+(1, 0, 1, 1, 'INV0000001', '', '', '', '', '2024-01-26 12:34:12', 135000000, 0, 135000000, 135000000, ''),
+(2, 0, 1, 1, 'INV0000002', '', '', '', '', '2024-01-26 12:34:30', 27000000, 0, 27000000, 27000000, '');
 
 -- --------------------------------------------------------
 
@@ -296,7 +330,9 @@ CREATE TABLE `penjualan` (
 
 INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`) VALUES
 (6, 0, 1, 1, '00122', 'FJK123', 'adi11123', 'Bandung12312312', '085864273756112312312', '2024-01-04 11:05:32', 18000000, 0, 18000000, 20000000, ''),
-(7, 0, 1, 3, '123', '1232', 'dias', '123', '33444', '2024-01-04 11:05:08', 54000000, 0, 54000000, 55000000, '');
+(7, 0, 1, 3, '123', '1232', 'dias', '123', '33444', '2024-01-04 11:05:08', 54000000, 0, 54000000, 55000000, ''),
+(8, 0, 1, 1, 'INV0000008', '', '', '', '', '2024-01-26 10:39:01', 85500000, 0, 85500000, 90000000, ''),
+(9, 0, 1, 1, 'INV0000009', '', '', '', '', '2024-01-01 10:39:27', 4500000, 0, 4500000, 4000000, '');
 
 -- --------------------------------------------------------
 
@@ -311,6 +347,7 @@ CREATE TABLE `produk` (
   `harga_modal` int(11) NOT NULL,
   `harga_jual` int(11) NOT NULL,
   `stok` float NOT NULL,
+  `satuan` varchar(255) NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -319,9 +356,9 @@ CREATE TABLE `produk` (
 -- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 95, '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
-(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 99, 'default.png', '');
+INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 100, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 100, '', 'default.png', '');
 
 -- --------------------------------------------------------
 
@@ -535,7 +572,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `akses_role`
 --
 ALTER TABLE `akses_role`
-  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=341;
+  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
 
 --
 -- AUTO_INCREMENT for table `backup`
@@ -547,13 +584,13 @@ ALTER TABLE `backup`
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -571,7 +608,7 @@ ALTER TABLE `marketplace`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
@@ -583,7 +620,7 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengaturan`
@@ -595,7 +632,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `produk`

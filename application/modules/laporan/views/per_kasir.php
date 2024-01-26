@@ -1,15 +1,7 @@
-<div class="box box-danger">
+<div class="box box-primary">
 	<div class="box-header with-border">
 		<div class="pull-left">
 			<h4 class="box-title"><?php echo $judul ?></h4>
-		</div>
-		<div class="pull-right">
-			<?php if ($dari = $this->input->get('dari') && $sampai =  $this->input->get('sampai')): ?>
-				<a href="<?php echo base_url('laporan/export_per_kasir/'. $dari . '/' . $sampai . '/' . $this->input->get('id_outlet')) ?>" class="btn btn-success"><i class="fa fa-sign-in"></i> Export Excel</a>
-				<?php else: ?>
-					<a href="<?php echo base_url('laporan/export_per_kasir/') ?>" class="btn btn-success"><i class="fa fa-sign-in"></i> Export Excel</a>
-				<?php endif ?>
-				<a href="<?= base_url('laporan/penjualan') ?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
 		</div>
 	</div>
 	<div class="box-body">
@@ -25,7 +17,7 @@
 						<input type="date" name="sampai" id="dari" class="form-control">
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-danger btn-block">Submit</button>
+						<button type="submit" class="btn btn-primary btn-block">Submit</button>
 					</div>
 				</form>
 			</div>
@@ -39,8 +31,8 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Kode Kasir</th>
-								<th>Nama Kasir</th>
+								<th>Kode Sales</th>
+								<th>Nama Sales</th>
 								<th>Penjualan</th>
 								<th>Pendapatan</th>
 							</tr>
@@ -50,8 +42,8 @@
 							<?php $no=1; foreach ($laporan as $row): ?>
 							<tr>
 								<td><?= $no++ ?></td>
-								<td><?= $row['id_petugas'] ?></td>
-								<td><?= $row['nama_petugas'] ?></td>
+								<td><?= $row['id_user'] ?></td>
+								<td><?= $row['nama_user'] ?></td>
 								<td><?= $row['transaksi'] ?></td>
 								<td><?= "Rp. " . number_format($row['pendapatan']) ?></td>
 							</tr>

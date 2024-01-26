@@ -30,11 +30,9 @@ class laporan extends MX_Controller
     {
         $dari = $this->input->get('dari');
         $sampai = $this->input->get('sampai');
-        $id_outlet = $this->input->get('id_outlet');
-        $data['outlet'] = $this->outlet_model->get_outlet();
 
         if ($dari != '') {
-            $data['laporan'] = $this->laporan_model->get_paling_banyak_dijual($dari, $sampai, $id_outlet);
+            $data['laporan'] = $this->laporan_model->get_paling_banyak_dijual($dari, $sampai);
         } else {
             $data['laporan'] = $this->laporan_model->get_paling_banyak_dijual();
         }
@@ -82,16 +80,14 @@ class laporan extends MX_Controller
     {
         $dari = $this->input->get('dari');
         $sampai = $this->input->get('sampai');
-        $id_outlet = $this->input->get('id_outlet');
-        $data['outlet'] = $this->outlet_model->get_outlet();
 
         if ($dari != '') {
-            $data['laporan'] = $this->laporan_model->get_paling_sering_dijual($dari, $sampai, $id_outlet);
+            $data['laporan'] = $this->laporan_model->get_paling_sering_dijual($dari, $sampai);
         } else {
             $data['laporan'] = $this->laporan_model->get_paling_sering_dijual();
         }
 
-        $data['judul'] = "Laporan produk Paling Sering Dijual";
+        $data['judul'] = "Laporan Produk Paling Sering Dijual";
 
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('laporan/paling_sering_dijual', $data, FALSE);
@@ -186,11 +182,9 @@ class laporan extends MX_Controller
     {
         $dari = $this->input->get('dari');
         $sampai = $this->input->get('sampai');
-        $id_outlet = $this->input->get('id_outlet');
-        $data['outlet'] = $this->outlet_model->get_outlet();
 
         if ($dari != '') {
-            $data['laporan'] = $this->laporan_model->get_per_kategori($dari, $sampai, $id_outlet);
+            $data['laporan'] = $this->laporan_model->get_per_kategori($dari, $sampai);
         } else {
             $data['laporan'] = $this->laporan_model->get_per_kategori();
         }
@@ -240,11 +234,9 @@ class laporan extends MX_Controller
     {
         $dari = $this->input->get('dari');
         $sampai = $this->input->get('sampai');
-        $id_outlet = $this->input->get('id_outlet');
-        $data['outlet'] = $this->outlet_model->get_outlet();
 
         if ($dari != '') {
-            $data['laporan'] = $this->laporan_model->get_per_pelanggan($dari, $sampai, $id_outlet);
+            $data['laporan'] = $this->laporan_model->get_per_pelanggan($dari, $sampai);
         } else {
             $data['laporan'] = $this->laporan_model->get_per_pelanggan();
         }
@@ -351,10 +343,6 @@ class laporan extends MX_Controller
 
         if ($dari != '') {
             $data['laporan'] = $this->laporan_model->get_all_pembelian($dari, $sampai);
-            $data['total_pembelian'] = $this->laporan_model->get_total_pembelian($dari, $sampai);
-        } else {
-            $data['laporan'] = $this->laporan_model->get_all_pembelian();
-            $data['total_pembelian'] = $this->laporan_model->get_total_pembelian();
         }
 
         $data['judul'] = "Laporan Pembelian";
@@ -367,13 +355,11 @@ class laporan extends MX_Controller
     {
         $dari = $this->input->get('dari');
         $sampai = $this->input->get('sampai');
-        $id_outlet = $this->input->get('id_outlet');
 
-        $data['omset'] = $this->laporan_model->get_omset($dari, $sampai, $id_outlet);
-        $data['qty'] = $this->laporan_model->get_qty_beli($dari, $sampai, $id_outlet);
+        $data['omset'] = $this->laporan_model->get_omset($dari, $sampai);
+        $data['qty'] = $this->laporan_model->get_qty_beli($dari, $sampai);
 
         $data['judul'] = "Laporan Omset";
-        $data['outlet'] = $this->outlet_model->get_outlet();
 
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('laporan/omset', $data, FALSE);

@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller
         cek_login();
 
         $data['judul'] = "Dashboard";
+        $data['produk'] = $this->db->get('produk')->result();
 
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('dashboard/index', $data, FALSE);

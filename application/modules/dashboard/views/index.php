@@ -84,7 +84,7 @@
             <span class="info-box-icon bg-aqua">Rp</span>
             <div class="info-box-content">
                 <span class="info-box-text">Bulan Ini</span>
-                 <span class="info-box-number">
+                <span class="info-box-number">
                     <?php
                     $this->db->select_sum('total', 'total');
                     $this->db->where('MONTH(tanggal)', date('m'));
@@ -101,7 +101,7 @@
             <span class="info-box-icon bg-aqua">Rp</span>
             <div class="info-box-content">
                 <span class="info-box-text">Tahun Ini</span>
-                 <span class="info-box-number">
+                <span class="info-box-number">
                     <?php
                     $this->db->select_sum('total', 'total');
                     $this->db->where('YEAR(tanggal)', date('Y'));
@@ -117,13 +117,48 @@
             <span class="info-box-icon bg-aqua">Rp</span>
             <div class="info-box-content">
                 <span class="info-box-text">Total Pendapatan</span>
-                 <span class="info-box-number">
+                <span class="info-box-number">
                     <?php
                     $this->db->select_sum('total', 'total');
                     $total =  $this->db->get('penjualan')->row()->total;
                     echo number_format($total, 0, '', '.');
                     ?>
                 </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h4 class="box-title">Data Stok</h4>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Produk</th>
+                                <th>Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($produk as $row) : ?>
+                                <tr>
+                                    <td><?= $no+1 ?></td>
+                                    <td><?= $row->nama_produk ?></td>
+                                    <td><?= $row->stok ?></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

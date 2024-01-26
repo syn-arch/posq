@@ -1,15 +1,7 @@
-<div class="box box-danger">
+<div class="box box-primary">
 	<div class="box-header with-border">
 		<div class="pull-left">
 			<h4 class="box-title"><?php echo $judul ?></h4>
-		</div>
-		<div class="pull-right">
-			<?php if ($dari = $this->input->get('dari') && $sampai = $this->input->get('sampai')): ?>
-				<a href="<?php echo base_url('laporan/export_paling_banyak_dijual/'. $dari . '/' . $sampai . '/' . $this->input->get('id_outlet')) ?>" class="btn btn-success"><i class="fa fa-sign-in"></i> Export Excel</a>
-				<?php else: ?>
-					<a href="<?php echo base_url('laporan/export_paling_banyak_dijual/') ?>" class="btn btn-success"><i class="fa fa-sign-in"></i> Export Excel</a>
-				<?php endif ?>
-				<a href="<?= base_url('laporan/penjualan') ?>" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
 		</div>
 	</div>
 	<div class="box-body">
@@ -24,18 +16,8 @@
 						<label for="">Sampai Tanggal</label>
 						<input type="date" name="sampai" id="dari" class="form-control">
 					</div>
-					<div class="form-group <?php if(form_error('id_outlet')) echo 'has-error'?>">
-						<label for="id_outlet">Outlet</label>
-						<select name="id_outlet" id="id_outlet" class="form-control">
-							<option value="">Semua Outlet</option>
-							<?php foreach ($outlet as $row): ?>
-								<option value="<?php echo $row['id_outlet'] ?>"><?php echo $row['nama_outlet'] ?></option>
-							<?php endforeach ?>
-						</select>
-						<?php echo form_error('id_outlet', '<small style="color:red">','</small>') ?>
-					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-danger btn-block">Submit</button>
+						<button type="submit" class="btn btn-primary btn-block">Submit</button>
 					</div>
 				</form>
 			</div>
@@ -59,8 +41,8 @@
 							<?php $no=1; foreach ($laporan as $row): ?>
 							<tr>
 								<td><?= $no++ ?></td>
-								<td><?= $row['id_barang'] ?></td>
-								<td><?= $row['nama_barang'] ?></td>
+								<td><?= $row['id_produk'] ?></td>
+								<td><?= $row['nama_produk'] ?></td>
 								<td><?= $row['kuantitas'] ?></td>
 							</tr>
 						<?php endforeach ?>
