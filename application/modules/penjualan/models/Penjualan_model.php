@@ -130,7 +130,7 @@ class Penjualan_model extends CI_Model
         if ($id_status) {
             $this->db->where('penjualan.id_status', $id_status);
         }
-        $this->db->order_by($this->id, $this->order);
+        $this->db->order_by('tanggal', 'DESC');
         return $this->db->get($this->table)->result();
     }
 
@@ -170,7 +170,6 @@ class Penjualan_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL, $dari = '', $sampai = '', $id_status = '')
     {
-        $this->db->order_by($this->id, $this->order);
         $this->db->select('*, penjualan.alamat, penjualan.telepon');
         $this->db->join('user', 'user.id_user = penjualan.id_user', 'left');
         $this->db->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
@@ -187,7 +186,7 @@ class Penjualan_model extends CI_Model
             $this->db->or_like('no_pesanan', $q);
         }
         $this->db->limit($limit, $start);
-        $this->db->order_by($this->id, 'DESC');
+        $this->db->order_by('tanggal', 'DESC');
         return $this->db->get($this->table)->result();
     }
 

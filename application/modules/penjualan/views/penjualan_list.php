@@ -120,7 +120,7 @@ $access = $this->db->get('akses_role')->row_array();
                                         $produk = $this->db->get('detail_penjualan')->result();
                                         foreach ($produk as $row) :
                                         ?>
-                                            <li><?= $row->nama_produk ?></li>
+                                            <li><?= $row->nama_produk . " (" . $row->qty . ")" ?></li>
                                         <?php endforeach ?>
                                     </ul>
                                 </td>
@@ -147,7 +147,7 @@ $access = $this->db->get('akses_role')->row_array();
                 <div class="row">
                     <div class="col-md-6">
                         <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-                        <?php echo anchor(site_url('penjualan/excel/' . $this->input->get('dari') . '/' . $this->input->get('sampai') . '/' . $this->input->get('id_status') ), 'Excel', 'class="btn btn-primary"'); ?>
+                        <?php echo anchor(site_url('penjualan/excel/' . $this->input->get('dari') . '/' . $this->input->get('sampai') . '/' . $this->input->get('id_status')), 'Excel', 'class="btn btn-primary"'); ?>
                         <?php echo anchor(site_url('penjualan/pdf'), 'PDF', 'class="btn btn-primary"'); ?>
 
                     </div>
@@ -174,7 +174,7 @@ $access = $this->db->get('akses_role')->row_array();
                 <form class="form-update-status">
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <select name="id_status" id="id_status" class="form-control">
+                            <select name="id_status" id="id_status" class="form-control satatus">
                                 <?php foreach ($data_status as $row) : ?>
                                     <option value="<?= $row->id_status ?>"><?= $row->nama_status ?></option>
                                 <?php endforeach ?>
@@ -229,7 +229,7 @@ $access = $this->db->get('akses_role')->row_array();
                     url: base_url + table_name + '/update_bulk',
                     data: {
                         data: data,
-                        id_status: $('#id_status').val()
+                        id_status: $('.satatus').val()
                     },
                     success: function(data) {
                         swal('Berhasil', 'Data berhail diubah', 'success');

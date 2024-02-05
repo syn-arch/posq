@@ -116,9 +116,9 @@ class Penjualan extends MX_Controller
     {
         cek_akses('u');
 
-        foreach ($_POST['data'] as $id) {
+        foreach ($_POST['data'] as $row) {
             $this->db->set('id_status', $_POST['id_status']);
-            $this->db->where('id_penjualan', $id);
+            $this->db->where('id_penjualan', $row);
             $this->db->update('penjualan');
         }
     }
@@ -251,32 +251,40 @@ class Penjualan extends MX_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id Sales");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id Marketplace");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id Status");
-        xlsWriteLabel($tablehead, $kolomhead++, "Nomor Invoice");
         xlsWriteLabel($tablehead, $kolomhead++, "Tanggal");
+        xlsWriteLabel($tablehead, $kolomhead++, "Pelanggan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Sales");
+        xlsWriteLabel($tablehead, $kolomhead++, "Marketplace");
+        xlsWriteLabel($tablehead, $kolomhead++, "Nomor Invoice");
+        xlsWriteLabel($tablehead, $kolomhead++, "Nomor Pesanan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Daftar Produk");
         xlsWriteLabel($tablehead, $kolomhead++, "Sub Total");
-        xlsWriteLabel($tablehead, $kolomhead++, "Diskon");
-        xlsWriteLabel($tablehead, $kolomhead++, "Total");
-        xlsWriteLabel($tablehead, $kolomhead++, "Bayar");
         xlsWriteLabel($tablehead, $kolomhead++, "Keterangan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Status");
 
         foreach ($this->Penjualan_model->get_all($dari, $sampai, $id_status) as $data) {
             $kolombody = 0;
 
+            $this->db->where('id_penjualan', $data->id_penjualan);
+            $produk = $this->db->get('detail_penjualan')->result();
+
+            $daftar_produk = "";
+            foreach ($produk as $row) {
+                $daftar_produk .= " -" . $row->nama_produk . "(".$row->qty .")";
+            }
+
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
-            xlsWriteNumber($tablebody, $kolombody++, $nourut);
-            xlsWriteLabel($tablebody, $kolombody++, $data->id_user);
-            xlsWriteNumber($tablebody, $kolombody++, $data->id_marketplace);
-            xlsWriteNumber($tablebody, $kolombody++, $data->id_status);
-            xlsWriteLabel($tablebody, $kolombody++, $data->nomor_invoice);
+            xlsWriteLabel($tablebody, $kolombody++, $nourut);
             xlsWriteLabel($tablebody, $kolombody++, $data->tanggal);
-            xlsWriteNumber($tablebody, $kolombody++, $data->sub_total);
-            xlsWriteNumber($tablebody, $kolombody++, $data->diskon);
-            xlsWriteNumber($tablebody, $kolombody++, $data->total);
-            xlsWriteNumber($tablebody, $kolombody++, $data->bayar);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_user);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_marketplace);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nomor_invoice);
+            xlsWriteLabel($tablebody, $kolombody++, $data->no_pesanan);
+            xlsWriteLabel($tablebody, $kolombody++, $daftar_produk);
+            xlsWriteLabel($tablebody, $kolombody++, $data->sub_total);
             xlsWriteLabel($tablebody, $kolombody++, $data->keterangan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
 
             $tablebody++;
             $nourut++;
