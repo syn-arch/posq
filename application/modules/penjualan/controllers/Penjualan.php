@@ -16,6 +16,17 @@ class Penjualan extends MX_Controller
         $this->load->library('form_validation');
     }
 
+    public function json()
+    {
+        header('Content-Type: application/json');
+
+        $dari = $this->input->get('dari');
+        $sampai = $this->input->get('sampai');
+        $id_status = $this->input->get('id_status');
+
+        echo $this->Penjualan_model->json($dari, $sampai, $id_status);
+    }
+
     public function index()
     {
         $q = urldecode($this->input->get('q', TRUE));
@@ -81,6 +92,7 @@ class Penjualan extends MX_Controller
                 'no_pesanan' => $row->no_pesanan,
                 'alamat' => $row->alamat,
                 'telepon' => $row->telepon,
+                'lampiran' => $row->lampiran,
             );
 
 
@@ -188,6 +200,7 @@ class Penjualan extends MX_Controller
                 'alamat' => set_value('alamat', $row->alamat),
                 'telepon' => set_value('telepon', $row->telepon),
                 'no_pesanan' => set_value('no_pesanan', $row->no_pesanan),
+                'lampiran' => set_value('lampiran', $row->lampiran),
             );
 
             $data['judul'] = 'Ubah Penjualan';
@@ -270,7 +283,7 @@ class Penjualan extends MX_Controller
 
             $daftar_produk = "";
             foreach ($produk as $row) {
-                $daftar_produk .= " -" . $row->nama_produk . "(".$row->qty .")";
+                $daftar_produk .= " -" . $row->nama_produk . "(" . $row->qty . ")";
             }
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric

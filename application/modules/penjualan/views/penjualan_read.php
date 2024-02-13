@@ -95,14 +95,14 @@
                                         <td class="text-right"><?= number_format($diskon, 0, '', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <th>Lampiran</th>
                                         <td></td>
                                         <td></td>
                                         <th class="text-right">Total</th>
                                         <td class="text-right"><?= number_format($total, 0, '', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td><img width="400" src="<?= base_url('assets/img/penjualan/') . $lampiran ?>" alt="" class="img-responsive"></td>
                                         <td></td>
                                         <td></td>
                                         <th class="text-right">Bayar</th>

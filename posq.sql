@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 26, 2024 at 02:03 PM
+-- Generation Time: Feb 13, 2024 at 05:42 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -41,32 +41,32 @@ CREATE TABLE `akses_role` (
 --
 
 INSERT INTO `akses_role` (`akses_role`, `id_menu`, `id_role`, `c`, `u`, `d`) VALUES
-(416, 1, 1, 0, 0, 0),
-(417, 10, 1, 1, 1, 1),
-(418, 11, 1, 0, 0, 0),
-(419, 22, 1, 0, 0, 0),
-(420, 23, 1, 0, 0, 0),
-(421, 24, 1, 0, 0, 0),
-(422, 27, 1, 0, 0, 0),
-(423, 62, 1, 0, 0, 0),
-(424, 64, 1, 0, 0, 0),
-(425, 76, 1, 1, 1, 1),
-(426, 77, 1, 1, 1, 1),
-(427, 78, 1, 1, 1, 1),
-(428, 79, 1, 1, 1, 1),
-(429, 80, 1, 0, 0, 0),
-(430, 81, 1, 1, 1, 1),
-(431, 85, 1, 0, 0, 0),
-(432, 87, 1, 0, 0, 0),
-(433, 88, 1, 0, 0, 0),
-(434, 89, 1, 0, 0, 0),
-(435, 91, 1, 0, 0, 0),
-(436, 92, 1, 1, 1, 1),
-(437, 93, 1, 1, 1, 1),
-(438, 94, 1, 0, 0, 0),
-(439, 95, 1, 0, 0, 0),
-(440, 96, 1, 1, 1, 1),
-(441, 97, 1, 0, 0, 0);
+(469, 1, 1, 0, 0, 0),
+(470, 10, 1, 1, 1, 1),
+(471, 11, 1, 0, 0, 0),
+(472, 22, 1, 0, 0, 0),
+(473, 23, 1, 0, 0, 0),
+(474, 24, 1, 0, 0, 0),
+(475, 27, 1, 0, 0, 0),
+(476, 62, 1, 0, 0, 0),
+(477, 64, 1, 0, 0, 0),
+(478, 76, 1, 1, 1, 1),
+(479, 77, 1, 1, 1, 1),
+(480, 78, 1, 1, 1, 1),
+(481, 79, 1, 1, 1, 1),
+(482, 80, 1, 0, 0, 0),
+(483, 81, 1, 1, 1, 1),
+(484, 85, 1, 0, 0, 0),
+(485, 87, 1, 0, 0, 0),
+(486, 88, 1, 0, 0, 0),
+(487, 89, 1, 0, 0, 0),
+(488, 91, 1, 0, 0, 0),
+(489, 92, 1, 1, 1, 1),
+(490, 93, 1, 1, 1, 1),
+(491, 94, 1, 0, 0, 0),
+(492, 95, 1, 0, 0, 0),
+(493, 96, 1, 1, 1, 1),
+(494, 97, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -116,7 +116,7 @@ CREATE TABLE `detail_penjualan` (
   `id_penjualan` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
   `nama_produk` varchar(255) NOT NULL,
-  `qty` int(11) NOT NULL,
+  `qty` float NOT NULL,
   `harga_modal` int(11) NOT NULL,
   `harga_jual` int(11) NOT NULL,
   `total_harga` int(11) NOT NULL
@@ -127,12 +127,10 @@ CREATE TABLE `detail_penjualan` (
 --
 
 INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
-(42, 6, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
-(43, 6, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
-(44, 7, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 4, 8000000, 13500000, 54000000),
-(45, 8, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 5, 8000000, 13500000, 67500000),
-(46, 8, 2, 'Laptop Acer Swift 3', 4, 2500000, 4500000, 18000000),
-(47, 9, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000);
+(49, 10, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
+(50, 11, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 1000000),
+(51, 11, 2, 'Laptop Acer Swift 3', 2, 2500000, 1000, 4000000),
+(52, 12, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
 
 -- --------------------------------------------------------
 
@@ -187,40 +185,41 @@ CREATE TABLE `menu` (
   `submenu` int(11) NOT NULL,
   `url` varchar(255) NOT NULL,
   `urutan` int(11) NOT NULL,
-  `crudable` int(11) NOT NULL
+  `crudable` int(11) NOT NULL,
+  `external` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`id_menu`, `nama_menu`, `icon`, `ada_submenu`, `submenu`, `url`, `urutan`, `crudable`) VALUES
-(1, 'Dashboard', 'fa fa-tachometer-alt', 0, 0, 'dashboard', 1, 0),
-(10, 'Data Sales', 'fas fa-user-shield', 0, 87, 'user', 1, 1),
-(11, 'Akses Menu Sales', 'fas fa-shield-alt', 0, 87, 'user/akses', 2, 0),
-(22, 'Profil Saya', 'fa fa-user', 0, 0, 'profil', 8, 0),
-(23, 'Utilitas', 'fas fa-cog', 1, 0, 'utilitas', 7, 0),
-(24, 'Backup Database', 'fas fa-database', 0, 23, 'utilitas/backup', 1, 0),
-(27, 'Pengaturan', 'fas fa-cogs', 0, 0, 'pengaturan', 9, 0),
-(62, 'Pengelola Menu', 'fa fa-bars', 0, 23, 'menu', 3, 0),
-(64, 'CRUD Generator', 'fas fa-edit', 0, 23, 'utilitas/crud_generator', 2, 0),
-(76, 'Data Pelanggan', 'fas fa-user-check', 0, 88, 'pelanggan', 1, 1),
-(77, 'Data Supplier', 'fas fa-box', 0, 88, 'supplier', 2, 1),
-(78, 'Data Kategori', 'fas fa-tags', 0, 88, 'kategori', 3, 1),
-(79, 'Data Produk', 'fas fa-box-open', 0, 88, 'produk', 4, 1),
-(80, 'Penjualan Baru', 'fas fa-cart-arrow-down', 0, 89, 'penjualan/create', 1, 0),
-(81, 'Riwayat Penjualan', 'fas fa-shopping-cart', 0, 89, 'penjualan', 2, 1),
-(85, 'Laporan Penjualan', 'fas fa-book', 0, 91, 'laporan/penjualan', 1, 0),
-(87, 'Sales', 'fas fa-user-circle', 1, 0, '#', 2, 0),
-(88, 'Master', 'fas fa-check-circle', 1, 0, '#', 3, 0),
-(89, 'Penjualan', 'fas fa-cart-arrow-down', 1, 0, '#', 4, 0),
-(91, 'Laporan', 'fas fa-book', 1, 0, '#', 6, 0),
-(92, 'Data Marketplace', 'fas fa-store', 0, 88, 'marketplace', 5, 1),
-(93, 'Status Pesanan', 'fas fa-shapes', 0, 88, 'status', 6, 1),
-(94, 'Pembelian', 'fas fa-cart-plus', 1, 0, '#', 5, 0),
-(95, 'Pembelian Baru', 'fas fa-cart-plus', 0, 94, 'pembelian/create', 1, 0),
-(96, 'Riwayat Pembelian', 'fas fa-cart-plus', 0, 94, 'pembelian', 2, 1),
-(97, 'Laporan Pembelian', 'fas fa-book', 0, 91, 'laporan/pembelian', 1, 0);
+INSERT INTO `menu` (`id_menu`, `nama_menu`, `icon`, `ada_submenu`, `submenu`, `url`, `urutan`, `crudable`, `external`) VALUES
+(1, 'Dashboard', 'fa fa-tachometer-alt', 0, 0, 'dashboard', 1, 0, 0),
+(10, 'Data Sales', 'fas fa-user-shield', 0, 87, 'user', 1, 1, 0),
+(11, 'Akses Menu Sales', 'fas fa-shield-alt', 0, 87, 'user/akses', 2, 0, 0),
+(22, 'Profil Saya', 'fa fa-user', 0, 0, 'profil', 8, 0, 0),
+(23, 'Utilitas', 'fas fa-cog', 1, 0, 'utilitas', 7, 0, 0),
+(24, 'Backup Database', 'fas fa-database', 0, 23, 'utilitas/backup', 1, 0, 0),
+(27, 'Pengaturan', 'fas fa-cogs', 0, 0, 'pengaturan', 9, 0, 0),
+(62, 'Pengelola Menu', 'fa fa-bars', 0, 23, 'menu', 3, 0, 0),
+(64, 'CRUD Generator', 'fas fa-edit', 0, 23, 'utilitas/crud_generator', 2, 0, 0),
+(76, 'Data Pelanggan', 'fas fa-user-check', 0, 88, 'pelanggan', 1, 1, 0),
+(77, 'Data Supplier', 'fas fa-box', 0, 88, 'supplier', 2, 1, 0),
+(78, 'Data Kategori', 'fas fa-tags', 0, 88, 'kategori', 3, 1, 0),
+(79, 'Data Produk', 'fas fa-box-open', 0, 88, 'produk', 4, 1, 0),
+(80, 'Penjualan Baru', 'fas fa-cart-arrow-down', 0, 89, 'penjualan/create', 1, 0, 0),
+(81, 'Riwayat Penjualan', 'fas fa-shopping-cart', 0, 89, 'penjualan', 2, 1, 0),
+(85, 'Laporan Penjualan', 'fas fa-book', 0, 91, 'laporan/penjualan', 1, 0, 0),
+(87, 'Sales', 'fas fa-user-circle', 1, 0, '#', 2, 0, 0),
+(88, 'Master', 'fas fa-check-circle', 1, 0, '#', 3, 0, 0),
+(89, 'Penjualan', 'fas fa-cart-arrow-down', 1, 0, '#', 4, 0, 0),
+(91, 'Laporan', 'fas fa-book', 1, 0, '#', 6, 0, 0),
+(92, 'Data Marketplace', 'fas fa-store', 0, 88, 'marketplace', 5, 1, 0),
+(93, 'Status Pesanan', 'fas fa-shapes', 0, 88, 'status', 6, 1, 0),
+(94, 'Pembelian', 'fas fa-cart-plus', 1, 0, '#', 5, 0, 0),
+(95, 'Pembelian Baru', 'fas fa-cart-plus', 0, 94, 'pembelian/create', 1, 0, 0),
+(96, 'Riwayat Pembelian', 'fas fa-cart-plus', 0, 94, 'pembelian', 2, 1, 0),
+(97, 'Laporan Pembelian', 'fas fa-book', 0, 91, 'laporan/pembelian', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -308,7 +307,7 @@ INSERT INTO `pengaturan` (`id_pengaturan`, `nama_aplikasi`, `logo`, `favicon`, `
 
 CREATE TABLE `penjualan` (
   `id_penjualan` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_user` varchar(255) NOT NULL,
   `id_marketplace` int(11) NOT NULL,
   `id_status` int(11) NOT NULL,
   `nomor_invoice` varchar(255) NOT NULL,
@@ -316,23 +315,23 @@ CREATE TABLE `penjualan` (
   `nama_pelanggan` varchar(255) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `telepon` varchar(255) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
   `sub_total` int(11) NOT NULL,
   `diskon` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `bayar` int(11) NOT NULL,
-  `keterangan` text NOT NULL
+  `keterangan` text NOT NULL,
+  `lampiran` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`) VALUES
-(6, 0, 1, 1, '00122', 'FJK123', 'adi11123', 'Bandung12312312', '085864273756112312312', '2024-01-04 11:05:32', 18000000, 0, 18000000, 20000000, ''),
-(7, 0, 1, 3, '123', '1232', 'dias', '123', '33444', '2024-01-04 11:05:08', 54000000, 0, 54000000, 55000000, ''),
-(8, 0, 1, 1, 'INV0000008', '', '', '', '', '2024-01-26 10:39:01', 85500000, 0, 85500000, 90000000, ''),
-(9, 0, 1, 1, 'INV0000009', '', '', '', '', '2024-01-01 10:39:27', 4500000, 0, 4500000, 4000000, '');
+INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`) VALUES
+(10, 'PTS00001', 1, 3, 'INV0000001', '', 'Adi', 'Bandung', '083822623170', '2024-02-13 14:46:19', 13500000, 0, 13500000, 14000000, '', '_bc5a449a-7096-4d78-b939-a31e166cf9ea1.jpeg'),
+(11, 'PTS00001', 1, 1, 'INV0000011', '', '', '', '', '2024-02-13 16:08:05', 5000000, 0, 5000000, 5000000, '', ''),
+(12, 'PTS00001', 1, 1, 'INV0000012', '', '', '', '', '2024-02-13 16:10:19', 13500000, 0, 13500000, 14000000, '', '');
 
 -- --------------------------------------------------------
 
@@ -357,8 +356,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 100, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
-(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 100, '', 'default.png', '');
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 107, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 104, '', 'default.png', '');
 
 -- --------------------------------------------------------
 
@@ -572,7 +571,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `akses_role`
 --
 ALTER TABLE `akses_role`
-  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=442;
+  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=496;
 
 --
 -- AUTO_INCREMENT for table `backup`
@@ -590,7 +589,7 @@ ALTER TABLE `detail_pembelian`
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -608,7 +607,7 @@ ALTER TABLE `marketplace`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
@@ -632,7 +631,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `produk`

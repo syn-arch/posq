@@ -54,6 +54,14 @@
                                    </select>
                                    <?php echo form_error('ada_submenu', '<small style="color:red">','</small>') ?>
                                </div>
+                               <div class="form-group">
+                                   <label for="external">Link External</label>
+                                   <select name="external" id="external" class="form-control external">
+                                       <option value="1" <?php echo  $menu['external'] == 1 ? 'selected' : '' ?>>YA</option>
+                                       <option value="0" <?php echo  $menu['external'] == 0 ? 'selected' : '' ?>>TIDAK</option>
+                                   </select>
+                                   <?php echo form_error('external', '<small style="color:red">','</small>') ?>
+                               </div>
                                <div class="form-group <?php if(form_error('url')) echo 'has-error'?>">
                                    <label for="url">Url</label>
                                    <input type="text" id="url" name="url" class="form-control url <?php if(form_error('url')) echo 'is-invalid'?>" placeholder="Url" value="<?php echo  $menu['url'] ?>">

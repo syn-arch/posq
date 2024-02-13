@@ -25,7 +25,7 @@
     }
 </style>
 
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-5">
             <div class="box box-primary">
@@ -37,7 +37,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <input autocomplete="off" type="text" name="no_invoice" id="no_invoice" class="form-control" placeholder="No Invoice" value="<?= no_invoice() ?>">
+                            <input autocomplete="off" type="text" name="no_invoice" id="no_invoice" readonly class="form-control" placeholder="No Invoice" value="<?= no_invoice() ?>">
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i></button>
                             </span>
@@ -137,6 +137,10 @@
                             <td><textarea name="keterangan" placeholder="Keterangan" id="" cols="30" rows="3" class="form-control"></textarea></td>
                         </tr>
                         <tr>
+                            <td>Lampiran</td>
+                            <td><input type="file" class="form-control" name="lampiran"></td>
+                        </tr>
+                        <tr>
                             <td colspan="2">
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                             </td>
@@ -178,12 +182,140 @@
                     </div>
                 </div>
             </div>
+
+            <style>
+                .container {
+                    position: absolute;
+                    background: #000000;
+                    padding: 25px;
+                    width: 350px;
+                    border-radius: 10px;
+                }
+
+                .calc-text {
+                    margin-bottom: 20px;
+                    padding-left: 5px;
+                }
+
+                .calc-text p {
+                    width: 100%;
+                    font-size: 3.5rem;
+                    text-align: end;
+                    background: transparent;
+                    color: #fff;
+                    border: none;
+                    outline: none;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                }
+
+                .btn-calc {
+                    background: #333333;
+                    color: #fff;
+                    font-size: 1.5rem;
+                    border: none;
+                    border-radius: 70%;
+                    cursor: pointer;
+                    height: 65px;
+                    width: 65px;
+                }
+
+                .btn-calc:active,
+                .btn-calc:focus {
+                    filter: brightness(120%);
+                }
+
+                .calc-keys {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    grid-row-gap: 15px;
+                    grid-column-gap: 10px;
+                }
+
+                .key-zero {
+                    grid-column: span 2;
+                    width: 100%;
+                    border-radius: 30px;
+                }
+
+                .key-operate {
+                    background: #ff9501;
+                }
+
+                .key-others {
+                    background: #a6a6a6;
+                    color: #000000;
+                }
+            </style>
+
+            <div class="container" draggable="true">
+                <div class="calc-text">
+                    <p name="user-input" id="user-input">0</p>
+                </div>
+                <div class="calc-keys">
+                    <button type="button" class="btn-calc key-others operations">AC</button>
+                    <button type="button" class="btn-calc key-others operations">DEL</button>
+                    <button type="button" class="btn-calc key-others operations">%</button>
+                    <button type="button" class="btn-calc key-operate operations">/</button>
+                    <button type="button" class="btn-calc numbers">7</button>
+                    <button type="button" class="btn-calc numbers">8</button>
+                    <button type="button" class="btn-calc numbers">9</button>
+                    <button type="button" class="btn-calc key-operate operations">*</button>
+                    <button type="button" class="btn-calc numbers">4</button>
+                    <button type="button" class="btn-calc numbers">5</button>
+                    <button type="button" class="btn-calc numbers">6</button>
+                    <button type="button" class="btn-calc key-operate operations">-</button>
+                    <button type="button" class="btn-calc numbers">1</button>
+                    <button type="button" class="btn-calc numbers">2</button>
+                    <button type="button" class="btn-calc numbers">3</button>
+                    <button type="button" class="btn-calc key-operate operations">+</button>
+                    <button type="button" class="btn-calc key-zero numbers">0</button>
+                    <button type="button" class="btn-calc numbers">.</button>
+                    <button type="button" class="btn-calc key-operate operations">=</button>
+                </div>
+            </div>
         </div>
     </div>
 </form>
 
 <script>
     $(function() {
+
+        const inputValue = document.getElementById("user-input");
+        const number = document.querySelectorAll(".numbers").forEach(function(item) {
+            item.addEventListener("click", function(e) {
+                if (inputValue.innerText === "NaN") {
+                    inputValue.innerText = "";
+                }
+                if (inputValue.innerText === "0") {
+                    inputValue.innerText = "";
+                }
+                inputValue.innerText += e.target.innerHTML.trim();
+            });
+        });
+
+        const calculate = document
+            .querySelectorAll(".operations")
+            .forEach(function(item) {
+                item.addEventListener("click", function(e) {
+                    let lastValue = inputValue.innerText.substring(inputValue.innerText.length, inputValue.innerText.length - 1);
+
+                    if (!isNaN(lastValue) && e.target.innerHTML === "=") {
+                        inputValue.innerText = eval(inputValue.innerText);
+                    } else if (e.target.innerHTML === "AC") {
+                        inputValue.innerText = 0;
+                    } else if (e.target.innerHTML === "DEL") {
+                        inputValue.innerText = inputValue.innerText.substring(0, inputValue.innerText.length - 1);
+                        if (inputValue.innerText.length == 0) {
+                            inputValue.innerText = 0;
+                        }
+                    } else {
+                        if (!isNaN(lastValue)) {
+                            inputValue.innerText += e.target.innerHTML;
+                        }
+                    }
+                });
+            });
 
         function rupiah(angka, rp = false) {
             angka = angka.toString();
@@ -250,8 +382,8 @@
                         <input type="hidden" name="harga_modal[]" value="${data.harga_modal}">
                         <input type="hidden" name="harga_jual[]" value="${data.harga_jual}">
                         <td width="35%">${data.nama_produk}</td>
-                        <td width="15%"><input type="number" class="form-control qty" name="qty[]" autocomplete="off" value="1" min="0"></td>
-                        <td class="text-right harga-jual">${rupiah(data.harga_jual)}</td>
+                        <td width="15%"><input type="number" class="form-control qty" name="qty[]" autocomplete="off" value="1" step="0.1" min="0"></td>
+                        <td class="text-right"><input type="text" class="form-control harga_jual" name="harga_jual[]" autocomplete="off" value="${rupiah(data.harga_jual)}" min="0"></td>
                         <td class="text-right" width="20%"><input type="text" name="total_harga[]" readonly class="form-control text-right total-harga" value="${rupiah(data.harga_jual)}" ></td>
                         <td class="text-right" width="10%"><a class="btn btn-danger hapus-cart"><i class="fa fa-trash"></i></a></td>
                     </tr>
@@ -264,13 +396,23 @@
         });
 
         $(document).on('keyup change', '.qty', function() {
-            const qty = $(this).val();
-            const harga = clean_number($(this).closest('tr').find('.harga-jual').text());
+            const qty = parseFloat($(this).val());
+            const harga = clean_number($(this).closest('tr').find('.harga_jual').val());
 
-            $(this).closest('tr').find('.total-harga').val(rupiah(qty * harga));
+            $(this).closest('tr').find('.total-harga').val(rupiah(Math.round(qty * harga)));
 
             get_subtotal();
-        })
+        });
+
+        $(document).on('keyup change', '.harga_jual', function() {
+            $(this).val(rupiah($(this).val()));
+            const harga_jual = clean_number($(this).val());
+            const qty = parseFloat($(this).closest('tr').find('.qty').val());
+
+            $(this).closest('tr').find('.total-harga').val(rupiah(Math.round(qty * harga_jual)));
+
+            get_subtotal();
+        });
 
         $(document).on('click', '.hapus-cart', function(e) {
             e.preventDefault();

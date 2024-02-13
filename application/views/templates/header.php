@@ -121,7 +121,17 @@ if (!$user) {
 
                     <?php foreach ($menu as $row) : ?>
                         <?php if ($row['ada_submenu'] == 0 && $row['submenu'] == 0) : ?>
-                            <li <?php echo $row['nama_menu'] == $judul ? 'class="active"' : '' ?>><a href="<?php echo base_url($row['url']) ?>"><i class="<?php echo $row['icon'] ?>"></i> <span><?php echo $row['nama_menu'] ?></span></a></li>
+
+                            <?php if ($row['external']) : ?>
+                                <li <?php echo $row['nama_menu'] == $judul ? 'class="active"' : '' ?>>
+                                    <a target="_blank" href="<?php echo ($row['url']) ?>"><i class="<?php echo $row['icon'] ?>"></i> <span><?php echo $row['nama_menu'] ?></span></a>
+                                </li>
+                            <?php else : ?>
+                                <li <?php echo $row['nama_menu'] == $judul ? 'class="active"' : '' ?>>
+                                    <a href="<?php echo base_url($row['url']) ?>"><i class="<?php echo $row['icon'] ?>"></i> <span><?php echo $row['nama_menu'] ?></span></a>
+                                </li>
+                            <?php endif ?>
+
                         <?php elseif ($row['ada_submenu'] == 1 && $row['submenu'] == 0) : ?>
                             <?php
                             $this->db->where('nama_menu', $judul);
@@ -163,11 +173,8 @@ if (!$user) {
                     <?php endforeach ?>
 
                     <li><a href="<?php echo base_url('logout') ?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
-
                 </ul>
-                <!-- /.sidebar-menu -->
             </section>
-            <!-- /.sidebar -->
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
