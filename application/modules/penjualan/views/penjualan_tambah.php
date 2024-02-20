@@ -37,9 +37,9 @@
                 <div class="box-body">
                     <div class="form-group">
                         <div class="input-group input-group">
-                            <input autocomplete="off" type="text" name="no_invoice" id="no_invoice" readonly class="form-control" placeholder="No Invoice" value="<?= no_invoice() ?>">
+                            <input autocomplete="off" type="text" name="no_invoice" id="no_invoice" class="form-control no_invoice" placeholder="No Invoice" value="<?= no_invoice() ?>">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-calendar"></i></button>
+                                <button type="button" class="btn btn-primary btn-flat btn-change"><i class="fa fa-check"></i></button>
                             </span>
                         </div>
                     </div>
@@ -280,6 +280,16 @@
 
 <script>
     $(function() {
+
+        $('.btn-change').click(function() {
+            val = $('.no_invoice').val();
+            kode = '<?= no_invoice() ?>'
+            if (val == kode) {
+                $('.no_invoice').val('<?= no_invoice(false, true) ?>');
+            } else {
+                $('.no_invoice').val('<?= no_invoice() ?>');
+            }
+        });
 
         const inputValue = document.getElementById("user-input");
         const number = document.querySelectorAll(".numbers").forEach(function(item) {
