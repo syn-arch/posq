@@ -128,22 +128,20 @@ function autoID($str, $table)
 
 function no_invoice($pembelian = false, $reseller = false)
 {
-    if($pembelian == true)
-    {
+    if ($pembelian == true) {
         $ci = &get_instance();
         $kode = $ci->db->query("SELECT MAX(id_pembelian) as kode from pembelian")->row()->kode;
         return "RP" . sprintf("%07s", $kode + 1);
-    }else{
+    } else {
         $ci = &get_instance();
-        $kode = $ci->db->query("SELECT MAX(id_penjualan) as kode from penjualan")->row()->kode;
-
+        $kode = $ci->db->query("SELECT nomor_invoice as kode from penjualan ORDER BY id_penjualan DESC")->row()->kode;
+        $kode_baru = substr($kode, 2, 7) + 1;
         if ($reseller == true) {
-            return "SL" . sprintf("%07s", $kode + 1);
-        }else{
-            return "RP" . sprintf("%07s", $kode + 1);
+            return "SL" . sprintf("%07s", $kode_baru);
+        } else {
+            return "RP" . sprintf("%07s", $kode_baru);
         }
     }
-    
 }
 
 function acak($length)
