@@ -122,8 +122,6 @@ class Penjualan_model extends CI_Model
 
         if ($penjualan) {
             $no_invoice = no_invoice();
-            // $this->session->set_flashdata('error', 'No Invoice Telah Digunakan');
-            // redirect(site_url('penjualan/create'));
         } else {
             $no_invoice = $post['no_invoice'];
         }
@@ -145,6 +143,7 @@ class Penjualan_model extends CI_Model
             'total' => str_replace('.', '', $post['total']),
             'bayar' => str_replace('.', '', $post['bayar']),
             'keterangan' => $post['keterangan'],
+            'sl' => $post['sl'],
         ];
 
         if ($_FILES['lampiran']['name']) {
@@ -195,6 +194,7 @@ class Penjualan_model extends CI_Model
             'total' => str_replace('.', '', $post['total']),
             'bayar' => str_replace('.', '', $post['bayar']),
             'keterangan' => $post['keterangan'],
+            'sl' => $post['sl'],
         ];
 
         if ($_FILES['lampiran']['name']) {

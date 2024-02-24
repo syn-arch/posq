@@ -201,6 +201,7 @@ class Penjualan extends MX_Controller
                 'telepon' => set_value('telepon', $row->telepon),
                 'no_pesanan' => set_value('no_pesanan', $row->no_pesanan),
                 'lampiran' => set_value('lampiran', $row->lampiran),
+                'sl' => set_value('sl', $row->sl),
             );
 
             $data['judul'] = 'Ubah Penjualan';

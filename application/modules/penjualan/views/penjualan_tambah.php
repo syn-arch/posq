@@ -26,6 +26,7 @@
 </style>
 
 <form action="" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="sl" class="sl">
     <div class="row">
         <div class="col-md-5">
             <div class="box box-primary">
@@ -285,8 +286,10 @@
             val = $('.no_invoice').val();
             kode = '<?= no_invoice() ?>'
             if (val == kode) {
+                $('.sl').val(1)
                 $('.no_invoice').val('<?= no_invoice(false, true) ?>');
             } else {
+                $('.sl').val(0)
                 $('.no_invoice').val('<?= no_invoice() ?>');
             }
         });
@@ -379,7 +382,7 @@
 
             if (produk.length > 0) {
                 produk.find('.qty').val(parseInt(produk.find('.qty').val()) + 1)
-                total_harga = parseInt(clean_number(produk.find('.harga-jual').text())) * parseInt(produk.find('.qty').val());
+                total_harga = parseInt(clean_number(produk.find('.harga_jual').val())) * parseInt(produk.find('.qty').val());
                 produk.find('.total-harga').val(rupiah(total_harga))
 
                 get_subtotal();

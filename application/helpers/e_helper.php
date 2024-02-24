@@ -134,11 +134,23 @@ function no_invoice($pembelian = false, $reseller = false)
         return "RP" . sprintf("%07s", $kode + 1);
     } else {
         $ci = &get_instance();
-        $kode = $ci->db->query("SELECT nomor_invoice as kode from penjualan ORDER BY id_penjualan DESC")->row()->kode;
-        $kode_baru = substr($kode, 2, 7) + 1;
         if ($reseller == true) {
+            $penjualan = $ci->db->query("SELECT nomor_invoice as kode from penjualan WHERE sl = 1 ORDER BY id_penjualan DESC")->row();
+            if ($penjualan) {
+                $kode = $penjualan->kode;
+                $kode_baru = substr($kode, 2, 7) + 1;
+            }else{
+                $kode_baru = 1;
+            }
             return "SL" . sprintf("%07s", $kode_baru);
         } else {
+            $penjualan = $ci->db->query("SELECT nomor_invoice as kode from penjualan WHERE sl = 0 ORDER BY id_penjualan DESC")->row();
+            if ($penjualan) {
+                $kode = $penjualan->kode;
+                $kode_baru = substr($kode, 2, 7) + 1;
+            } else {
+                $kode_baru = 1;
+            }
             return "RP" . sprintf("%07s", $kode_baru);
         }
     }

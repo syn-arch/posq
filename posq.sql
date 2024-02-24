@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 13, 2024 at 05:42 PM
+-- Generation Time: Feb 24, 2024 at 08:48 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -127,10 +127,11 @@ CREATE TABLE `detail_penjualan` (
 --
 
 INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
-(49, 10, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
-(50, 11, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 1000000),
-(51, 11, 2, 'Laptop Acer Swift 3', 2, 2500000, 1000, 4000000),
-(52, 12, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
+(4, 4, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 2, 8000000, 13500000, 27000000),
+(5, 5, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 2, 8000000, 13500000, 27000000),
+(6, 6, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
+(7, 7, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
+(8, 8, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
 
 -- --------------------------------------------------------
 
@@ -321,17 +322,20 @@ CREATE TABLE `penjualan` (
   `total` int(11) NOT NULL,
   `bayar` int(11) NOT NULL,
   `keterangan` text NOT NULL,
-  `lampiran` varchar(255) NOT NULL
+  `lampiran` varchar(255) NOT NULL,
+  `sl` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`) VALUES
-(10, 'PTS00001', 1, 3, 'INV0000001', '', 'Adi', 'Bandung', '083822623170', '2024-02-13 14:46:19', 13500000, 0, 13500000, 14000000, '', '_bc5a449a-7096-4d78-b939-a31e166cf9ea1.jpeg'),
-(11, 'PTS00001', 1, 1, 'INV0000011', '', '', '', '', '2024-02-13 16:08:05', 5000000, 0, 5000000, 5000000, '', ''),
-(12, 'PTS00001', 1, 1, 'INV0000012', '', '', '', '', '2024-02-13 16:10:19', 13500000, 0, 13500000, 14000000, '', '');
+INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`, `sl`) VALUES
+(4, 'PTS00001', 1, 1, 'RP0000001', '', '', '', '', '2024-02-24 07:44:16', 27000000, 0, 27000000, 28000000, '', '', 0),
+(5, 'PTS00001', 1, 1, 'RP0000002', '', '', '', '', '2024-02-24 07:44:43', 27000000, 0, 27000000, 28000000, '', '', 0),
+(6, 'PTS00001', 1, 1, 'SL0000001', '', '', '', '', '2024-02-24 07:44:52', 4500000, 0, 4500000, 4500000, '', '', 1),
+(7, 'PTS00001', 1, 1, 'RP0000003', '', '', '', '', '2024-02-24 07:47:45', 4500000, 0, 4500000, 4500000, '', '', 0),
+(8, 'PTS00001', 1, 1, 'SL0000002', '', '', '', '', '2024-02-24 07:47:55', 13500000, 0, 13500000, 13500000, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -356,7 +360,7 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 107, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 105, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
 (2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 104, '', 'default.png', '');
 
 -- --------------------------------------------------------
@@ -589,7 +593,7 @@ ALTER TABLE `detail_pembelian`
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -631,7 +635,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `produk`
