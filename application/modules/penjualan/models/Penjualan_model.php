@@ -59,6 +59,9 @@ class Penjualan_model extends CI_Model
             $this->datatables->where('DATE(tanggal) >=', $dari);
             $this->datatables->where('DATE(tanggal) <=', $sampai);
         }
+        if ($this->session->userdata('level') != 'Admin') {
+            $this->datatables->where('penjualan.id_user', $this->session->userdata('id_user'));
+        }
         if ($id_status) {
             $this->datatables->where('penjualan.id_status', $id_status);
         }
@@ -242,6 +245,9 @@ class Penjualan_model extends CI_Model
         if ($dari && $sampai) {
             $this->db->where('DATE(tanggal) >=', $dari);
             $this->db->where('DATE(tanggal) <=', $sampai);
+        }
+        if ($this->session->userdata('level') != 'Admin') {
+            $this->db->where('penjualan.id_user', $this->session->userdata('id_user'));
         }
         if ($id_status) {
             $this->db->where('penjualan.id_status', $id_status);

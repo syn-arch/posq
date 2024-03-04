@@ -151,7 +151,7 @@
                             $no = 1;
                             foreach ($produk as $row) : ?>
                                 <tr>
-                                    <td><?= $no+1 ?></td>
+                                    <td><?= $no++ ?></td>
                                     <td><?= $row->nama_produk ?></td>
                                     <td><?= $row->stok ?></td>
                                 </tr>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 24, 2024 at 08:48 AM
+-- Generation Time: Mar 04, 2024 at 03:27 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -66,7 +66,12 @@ INSERT INTO `akses_role` (`akses_role`, `id_menu`, `id_role`, `c`, `u`, `d`) VAL
 (491, 94, 1, 0, 0, 0),
 (492, 95, 1, 0, 0, 0),
 (493, 96, 1, 1, 1, 1),
-(494, 97, 1, 0, 0, 0);
+(494, 97, 1, 0, 0, 0),
+(496, 1, 3, 0, 0, 0),
+(497, 89, 3, 0, 0, 0),
+(498, 80, 3, 0, 0, 0),
+(499, 81, 3, 1, 1, 1),
+(500, 22, 3, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -102,8 +107,7 @@ CREATE TABLE `detail_pembelian` (
 --
 
 INSERT INTO `detail_pembelian` (`id_detail_pembelian`, `id_pembelian`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
-(1, 1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 10, 8000000, 13500000, 135000000),
-(2, 2, 2, 'Laptop Acer Swift 3', 6, 2500000, 4500000, 27000000);
+(4, 4, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 5, 8000000, 13500000, 67500000);
 
 -- --------------------------------------------------------
 
@@ -131,7 +135,10 @@ INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produ
 (5, 5, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 2, 8000000, 13500000, 27000000),
 (6, 6, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
 (7, 7, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
-(8, 8, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
+(8, 8, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
+(9, 9, 2, 'Laptop Acer Swift 3', 110, 2500000, 4500000, 495000000),
+(10, 10, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 30, 8000000, 13500000, 405000000),
+(11, 11, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
 
 -- --------------------------------------------------------
 
@@ -272,8 +279,7 @@ CREATE TABLE `pembelian` (
 --
 
 INSERT INTO `pembelian` (`id_pembelian`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`) VALUES
-(1, 0, 1, 1, 'INV0000001', '', '', '', '', '2024-01-26 12:34:12', 135000000, 0, 135000000, 135000000, ''),
-(2, 0, 1, 1, 'INV0000002', '', '', '', '', '2024-01-26 12:34:30', 27000000, 0, 27000000, 27000000, '');
+(4, 0, 1, 1, 'RP0000001', '', '', '', '', '2024-03-04 14:16:37', 67500000, 0, 67500000, 68000000, '');
 
 -- --------------------------------------------------------
 
@@ -331,11 +337,14 @@ CREATE TABLE `penjualan` (
 --
 
 INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`, `sl`) VALUES
-(4, 'PTS00001', 1, 1, 'RP0000001', '', '', '', '', '2024-02-24 07:44:16', 27000000, 0, 27000000, 28000000, '', '', 0),
+(4, 'PTS00001', 1, 1, 'RP0000001', '', 'asdasd', 'aaa', '', '2024-02-24 07:44:16', 27000000, 0, 27000000, 28000000, '', '', 0),
 (5, 'PTS00001', 1, 1, 'RP0000002', '', '', '', '', '2024-02-24 07:44:43', 27000000, 0, 27000000, 28000000, '', '', 0),
 (6, 'PTS00001', 1, 1, 'SL0000001', '', '', '', '', '2024-02-24 07:44:52', 4500000, 0, 4500000, 4500000, '', '', 1),
 (7, 'PTS00001', 1, 1, 'RP0000003', '', '', '', '', '2024-02-24 07:47:45', 4500000, 0, 4500000, 4500000, '', '', 0),
-(8, 'PTS00001', 1, 1, 'SL0000002', '', '', '', '', '2024-02-24 07:47:55', 13500000, 0, 13500000, 13500000, '', '', 1);
+(8, 'PTS00001', 1, 1, 'SL0000002', '', '', '', '', '2024-02-24 07:47:55', 13500000, 0, 13500000, 13500000, '', '', 1),
+(9, 'PTS00002', 1, 1, 'RP0000004', '', '', '', '', '2024-03-04 14:20:20', 495000000, 0, 495000000, 496000000, '', '', 0),
+(10, 'PTS00002', 1, 1, 'RP0000005', '', 'Cihuy', 'Bandung', '-', '2024-03-04 14:21:08', 405000000, 0, 405000000, 496000000, '', '', 0),
+(11, 'PTS00001', 1, 1, 'RP0000006', '', '', '', '', '2024-03-04 14:25:59', 13500000, 0, 13500000, 13500000, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -360,8 +369,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 105, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
-(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 104, '', 'default.png', '');
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 99, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 0, '', 'default.png', '');
 
 -- --------------------------------------------------------
 
@@ -379,7 +388,8 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`id_role`, `nama_role`) VALUES
-(1, 'Admin');
+(1, 'Admin'),
+(3, 'Kasir');
 
 -- --------------------------------------------------------
 
@@ -459,7 +469,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `alamat`, `jk`, `telepon`, `email`, `password`, `gambar`, `id_role`) VALUES
-('PTS00001', 'Administrator', 'Bandung', 'L', '085864273756', 'admin@admin.com', '$2y$10$t2LIGNkyTgoo.wfFq65HU.RMH3.maKSCVMYL1.ix0l.xZjAOfi1PK', 'man-1.png', 1);
+('PTS00001', 'Administrator', 'Bandung', 'L', '085864273756', 'admin@admin.com', '$2y$10$t2LIGNkyTgoo.wfFq65HU.RMH3.maKSCVMYL1.ix0l.xZjAOfi1PK', 'man-1.png', 1),
+('PTS00002', 'Kasir', '-', 'L', '-', 'kasir@kasir.com', '$2y$10$tqrl4BVfXlRj63.YLZAWiu9ukswR7oqWAMwXUeG/SlWDb5uEDOynO', '_93fb6471-efa1-4aa4-9840-93757244b30c.jpeg', 3);
 
 --
 -- Indexes for dumped tables
@@ -575,7 +586,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `akses_role`
 --
 ALTER TABLE `akses_role`
-  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=496;
+  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
 
 --
 -- AUTO_INCREMENT for table `backup`
@@ -587,13 +598,13 @@ ALTER TABLE `backup`
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -623,7 +634,7 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pengaturan`
@@ -635,7 +646,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -647,7 +658,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status`

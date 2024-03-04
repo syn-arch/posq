@@ -395,7 +395,7 @@
                         <input type="hidden" name="harga_modal[]" value="${data.harga_modal}">
                         <input type="hidden" name="harga_jual[]" value="${data.harga_jual}">
                         <td width="35%">${data.nama_produk}</td>
-                        <td width="15%"><input type="number" class="form-control qty" name="qty[]" autocomplete="off" value="1" step="0.1" min="0"></td>
+                        <td width="15%"><input type="text" class="form-control qty" name="qty[]" autocomplete="off" value="1" step="0.1" min="0"></td>
                         <td class="text-right"><input type="text" class="form-control harga_jual" name="harga_jual[]" autocomplete="off" value="${rupiah(data.harga_jual)}" min="0"></td>
                         <td class="text-right" width="20%"><input type="text" name="total_harga[]" readonly class="form-control text-right total-harga" value="${rupiah(data.harga_jual)}" ></td>
                         <td class="text-right" width="10%"><a class="btn btn-danger hapus-cart"><i class="fa fa-trash"></i></a></td>

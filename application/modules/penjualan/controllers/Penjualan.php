@@ -251,6 +251,7 @@ class Penjualan extends MX_Controller
         $tablehead = 0;
         $tablebody = 1;
         $nourut = 1;
+
         //penulisan header
         header("Pragma: public");
         header("Expires: 0");
@@ -259,7 +260,7 @@ class Penjualan extends MX_Controller
         header("Content-Type: application/octet-stream");
         header("Content-Type: application/download");
         header("Content-Disposition: attachment;filename=" . $namaFile . "");
-        header("Content-Transfer-Encoding: binary ");
+        header("Content-Transfer-Encoding: binary");
 
         xlsBOF();
 
@@ -267,6 +268,8 @@ class Penjualan extends MX_Controller
         xlsWriteLabel($tablehead, $kolomhead++, "No");
         xlsWriteLabel($tablehead, $kolomhead++, "Tanggal");
         xlsWriteLabel($tablehead, $kolomhead++, "Pelanggan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Telepon");
+        xlsWriteLabel($tablehead, $kolomhead++, "Alamat");
         xlsWriteLabel($tablehead, $kolomhead++, "Sales");
         xlsWriteLabel($tablehead, $kolomhead++, "Marketplace");
         xlsWriteLabel($tablehead, $kolomhead++, "Nomor Invoice");
@@ -291,6 +294,8 @@ class Penjualan extends MX_Controller
             xlsWriteLabel($tablebody, $kolombody++, $nourut);
             xlsWriteLabel($tablebody, $kolombody++, $data->tanggal);
             xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->telepon);
+            xlsWriteLabel($tablebody, $kolombody++, $data->alamat);
             xlsWriteLabel($tablebody, $kolombody++, $data->nama_user);
             xlsWriteLabel($tablebody, $kolombody++, $data->nama_marketplace);
             xlsWriteLabel($tablebody, $kolombody++, $data->nomor_invoice);
