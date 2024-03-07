@@ -109,8 +109,8 @@
                                         <td class="text-right"><?= number_format($bayar, 0, '', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
+                                        <th>Terakhir Di Edit Oleh : </th>
+                                        <td><?= $user_edit ?></td>
                                         <td></td>
                                         <th class="text-right">Kembalian</th>
                                         <td class="text-right"><?= number_format($bayar - $total, 0, '', '.') ?></td>

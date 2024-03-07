@@ -51,15 +51,15 @@ class Penjualan_model extends CI_Model
         GROUP_CONCAT(CONCAT('- ', detail_penjualan.nama_produk, ', Qty : ', detail_penjualan.qty) SEPARATOR '<br>') AS produk"
         );
         $this->datatables->from('penjualan');
-        $this->datatables->join('detail_penjualan', 'penjualan.id_penjualan = detail_penjualan.id_penjualan');
-        $this->datatables->join('user', 'user.id_user = penjualan.id_user');
-        $this->datatables->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace');
-        $this->datatables->join('status', 'status.id_status = penjualan.id_status');
+        $this->datatables->join('detail_penjualan', 'penjualan.id_penjualan = detail_penjualan.id_penjualan', 'left');
+        $this->datatables->join('user', 'user.id_user = penjualan.id_user', 'left');
+        $this->datatables->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
+        $this->datatables->join('status', 'status.id_status = penjualan.id_status', 'left');
         if ($dari && $sampai) {
             $this->datatables->where('DATE(tanggal) >=', $dari);
             $this->datatables->where('DATE(tanggal) <=', $sampai);
         }
-        if ($this->session->userdata('level') != 'Admin') {
+        if ($this->session->userdata('level') == 'reseller lukman') {
             $this->datatables->where('penjualan.id_user', $this->session->userdata('id_user'));
         }
         if ($id_status) {
@@ -183,7 +183,7 @@ class Penjualan_model extends CI_Model
         $this->db->trans_begin();
 
         $data = [
-            'id_user' => $this->session->userdata('id_user'),
+            'id_user_edit' => $this->session->userdata('id_user'),
             'id_marketplace' => $post['id_marketplace'],
             'id_status' => $post['id_status'],
             'no_pesanan' => $post['no_pesanan'],
@@ -259,8 +259,9 @@ class Penjualan_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
-        $this->db->select('*, user.id_user,marketplace.id_marketplace,status.id_status, penjualan.alamat, penjualan.telepon');
+        $this->db->select('*, user_edit.nama_user as user_edit, user.id_user,marketplace.id_marketplace,status.id_status, penjualan.alamat, penjualan.telepon');
         $this->db->join('user', 'user.id_user = penjualan.id_user', 'left');
+        $this->db->join('user user_edit', 'user_edit.id_user = penjualan.id_user_edit', 'left');
         $this->db->join('marketplace', 'marketplace.id_marketplace = penjualan.id_marketplace', 'left');
         $this->db->join('status', 'status.id_status = penjualan.id_status', 'left');
         $this->db->where($this->id, $id);

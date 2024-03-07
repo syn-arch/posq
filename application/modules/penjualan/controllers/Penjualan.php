@@ -1,5 +1,8 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Penjualan extends MX_Controller
@@ -93,6 +96,7 @@ class Penjualan extends MX_Controller
                 'alamat' => $row->alamat,
                 'telepon' => $row->telepon,
                 'lampiran' => $row->lampiran,
+                'user_edit' =>  $row->user_edit,
             );
 
 
@@ -241,6 +245,89 @@ class Penjualan extends MX_Controller
             $this->session->set_flashdata('error', 'Data tidak ditemukan');
             redirect(site_url('penjualan'));
         }
+    }
+
+    public function template()
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'No')
+            ->setCellValue('B1', 'Tanggal Pesan (YYYY-MM-DD)')
+            ->setCellValue('C1', 'Marketplace')
+            ->setCellValue('D1', 'No. Pesanan')
+            ->setCellValue('E1', 'SKU Produk')
+            ->setCellValue('F1', 'Quantitas')
+            ->setCellValue('G1', 'Satuan')
+            ->setCellValue('H1', 'Total')
+            ->setCellValue('I1', 'Nama Pelanggan')
+            ->setCellValue('J1', 'No Telepon')
+            ->setCellValue('K1', 'Alamat');
+
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Template.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
+
+    public function import()
+    {
+        $file = explode('.', $_FILES['excel']['name']);
+        $extension = end($file);
+
+        if ($extension == 'csv') {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+
+        $spreadsheet = $reader->load($_FILES['excel']['tmp_name']);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+        $this->db->trans_begin();
+        for ($i = 1; $i < count($sheetData); $i++) {
+            if ($sheetData[$i]['0'] != '') {
+
+                $marketplace = $this->db->get_where('marketplace', ['nama_marketplace' => trim(strtolower($sheetData[$i]['2']))])->row();
+                
+                $this->db->insert('penjualan', [
+                    'id_user' => $this->session->userdata('id_user'),
+                    'id_marketplace' => $marketplace->id_marketplace,
+                    'no_pesanan' => $sheetData[$i]['3'],
+                    'nama_pelanggan' => $sheetData[$i]['8'],
+                    'alamat' => $sheetData[$i]['9'],
+                    'telepon' => $sheetData[$i]['10'],
+                    'nomor_invoice' => no_invoice(),
+                    'tanggal' => $sheetData[$i]['1'],
+                    'sub_total' => $sheetData[$i]['7'],
+                    'diskon' => 0,
+                    'total' => $sheetData[$i]['7'],
+                    'bayar' => $sheetData[$i]['7'],
+                ]);
+
+                $id_penjualan = $this->db->insert_id();
+
+                $produk = $this->db->get_where('produk', ['nama_produk' => trim(strtolower($sheetData[$i]['4']))])->row();
+
+                $this->db->insert('detail_penjualan', [
+                    'id_penjualan' => $id_penjualan,
+                    'id_produk' => $produk->id_produk,
+                    'nama_produk' => $produk->nama_produk,
+                    'qty' => $sheetData[$i]['5'],
+                    'harga_modal' => $produk->harga_modal,
+                    'harga_jual' => $produk->harga_jual,
+                    'total_harga' => $produk->harga_jual * $sheetData[$i]['5'],
+                ]);
+
+                $this->db->set('stok', 'stok-' . $sheetData[$i]['0'], FALSE);
+                $this->db->where('id_produk', $produk->id_produk);
+                $this->db->update('produk');
+            }
+        }
+        $this->db->trans_complete();
+
+        $this->session->set_flashdata('success', 'Di import');
+        redirect('penjualan', 'refresh');
     }
 
     public function excel($dari = '', $sampai = '', $id_status = '')

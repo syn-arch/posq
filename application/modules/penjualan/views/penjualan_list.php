@@ -31,9 +31,9 @@ $access = $this->db->get('akses_role')->row_array();
                         <?php if ($access['c']) : ?>
                             <a href="<?php echo base_url('penjualan/create') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Data</a>
                         <?php endif ?>
+                        <a href="#import" data-toggle="modal" class="btn btn-success"><i class="fa fa-sign-in-alt"></i> Import</a>
                         <?php echo anchor(site_url('penjualan/excel'), '<i class="fas fa-sign-out-alt"></i> Excel', 'class="btn btn-success"'); ?>
                         <?php echo anchor(site_url('penjualan/word'), '<i class="fas fa-sign-out-alt"></i> Word', 'class="btn btn-warning"'); ?>
-
                     </div>
                 </div>
             </div>
@@ -118,6 +118,35 @@ $access = $this->db->get('akses_role')->row_array();
                                     <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-shapes"></i></button>
                                 </span>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="import" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLongTitle">Ubah Status</h4>
+                </div>
+                <div class="modal-body">
+                    <a href="<?= base_url('penjualan/template') ?>" class="btn btn-primary"><i class="fa fa-download"></i> Download Template</a>
+                    <br>
+                    <br>
+                    <form action="<?= base_url('penjualan/import') ?>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group mt-5">
+                            <label for="">File Import</label>
+                            <input type="file" name="excel" class="form-control">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>
