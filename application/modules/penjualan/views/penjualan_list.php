@@ -137,7 +137,7 @@ $access = $this->db->get('akses_role')->row_array();
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="exampleModalLongTitle">Ubah Status</h4>
+                    <h4 class="modal-title" id="exampleModalLongTitle">Import Penjualan</h4>
                 </div>
                 <div class="modal-body">
                     <a href="<?= base_url('penjualan/template') ?>" class="btn btn-primary"><i class="fa fa-download"></i> Download Template</a>
