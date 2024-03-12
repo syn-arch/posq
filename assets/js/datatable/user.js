@@ -16,6 +16,7 @@ $(function () {
             { "data": "telepon" },
             { "data": "email" },
             { "data": "nama_role" },
+            { "data": "nama_marketplace" },
             {
                 "data": "id_user",
                 "render": function (data, type, row) {

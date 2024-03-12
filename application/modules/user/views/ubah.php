@@ -70,6 +70,16 @@
                                 </select>
                                 <?php echo form_error('id_role', '<small style="color:red">', '</small>') ?>
                             </div>
+                            <div class="form-group <?php if (form_error('id_marketplace')) echo 'has-error' ?>">
+                                <label for="id_marketplace">Marketplace</label>
+                                <select name="id_marketplace" id="id_marketplace" class="form-control">
+                                    <option value="">-- Silahkan Pilih Marketplace ---</option>
+                                    <?php foreach ($marketplace as $row) : ?>
+                                        <option value="<?php echo $row['id_marketplace'] ?>" <?php echo $user['id_marketplace'] == $row['id_marketplace'] ? 'selected' : '' ?>><?php echo $row['nama_marketplace'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                                <?php echo form_error('id_marketplace', '<small style="color:red">', '</small>') ?>
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                             </div>

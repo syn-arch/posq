@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 04, 2024 at 03:27 PM
+-- Generation Time: Mar 12, 2024 at 10:03 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -102,13 +102,6 @@ CREATE TABLE `detail_pembelian` (
   `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `detail_pembelian`
---
-
-INSERT INTO `detail_pembelian` (`id_detail_pembelian`, `id_pembelian`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
-(4, 4, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 5, 8000000, 13500000, 67500000);
-
 -- --------------------------------------------------------
 
 --
@@ -131,14 +124,8 @@ CREATE TABLE `detail_penjualan` (
 --
 
 INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
-(4, 4, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 2, 8000000, 13500000, 27000000),
-(5, 5, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 2, 8000000, 13500000, 27000000),
-(6, 6, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
-(7, 7, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000),
-(8, 8, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
-(9, 9, 2, 'Laptop Acer Swift 3', 110, 2500000, 4500000, 495000000),
-(10, 10, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 30, 8000000, 13500000, 405000000),
-(11, 11, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
+(1, 2, 2, 'Laptop Acer Swift 3', 2, 2500000, 4500000, 9000000),
+(2, 3, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
 
 -- --------------------------------------------------------
 
@@ -274,13 +261,6 @@ CREATE TABLE `pembelian` (
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `pembelian`
---
-
-INSERT INTO `pembelian` (`id_pembelian`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`) VALUES
-(4, 0, 1, 1, 'RP0000001', '', '', '', '', '2024-03-04 14:16:37', 67500000, 0, 67500000, 68000000, '');
-
 -- --------------------------------------------------------
 
 --
@@ -315,6 +295,7 @@ INSERT INTO `pengaturan` (`id_pengaturan`, `nama_aplikasi`, `logo`, `favicon`, `
 CREATE TABLE `penjualan` (
   `id_penjualan` int(11) NOT NULL,
   `id_user` varchar(255) NOT NULL,
+  `id_user_edit` varchar(255) NOT NULL,
   `id_marketplace` int(11) NOT NULL,
   `id_status` int(11) NOT NULL,
   `nomor_invoice` varchar(255) NOT NULL,
@@ -336,15 +317,9 @@ CREATE TABLE `penjualan` (
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`, `sl`) VALUES
-(4, 'PTS00001', 1, 1, 'RP0000001', '', 'asdasd', 'aaa', '', '2024-02-24 07:44:16', 27000000, 0, 27000000, 28000000, '', '', 0),
-(5, 'PTS00001', 1, 1, 'RP0000002', '', '', '', '', '2024-02-24 07:44:43', 27000000, 0, 27000000, 28000000, '', '', 0),
-(6, 'PTS00001', 1, 1, 'SL0000001', '', '', '', '', '2024-02-24 07:44:52', 4500000, 0, 4500000, 4500000, '', '', 1),
-(7, 'PTS00001', 1, 1, 'RP0000003', '', '', '', '', '2024-02-24 07:47:45', 4500000, 0, 4500000, 4500000, '', '', 0),
-(8, 'PTS00001', 1, 1, 'SL0000002', '', '', '', '', '2024-02-24 07:47:55', 13500000, 0, 13500000, 13500000, '', '', 1),
-(9, 'PTS00002', 1, 1, 'RP0000004', '', '', '', '', '2024-03-04 14:20:20', 495000000, 0, 495000000, 496000000, '', '', 0),
-(10, 'PTS00002', 1, 1, 'RP0000005', '', 'Cihuy', 'Bandung', '-', '2024-03-04 14:21:08', 405000000, 0, 405000000, 496000000, '', '', 0),
-(11, 'PTS00001', 1, 1, 'RP0000006', '', '', '', '', '2024-03-04 14:25:59', 13500000, 0, 13500000, 13500000, '', '', 0);
+INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_user_edit`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`, `sl`) VALUES
+(2, 'PTS00001', '', 1, 0, 'RP0000001', '1121', 'Adi', '83822623170', 'Bandung', '2023-12-31 17:00:00', 9000000, 0, 9000000, 9000000, '', '', 0),
+(3, 'PTS00001', '', 2, 0, 'RP0000002', '1123', 'Sukmana', '-', '-', '2023-12-31 17:00:00', 13500000, 0, 13500000, 13500000, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -369,8 +344,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 99, '', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
-(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, 0, '', 'default.png', '');
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 93, 'UNIT', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, -1, 'PCS', 'default.png', '');
 
 -- --------------------------------------------------------
 
@@ -454,6 +429,7 @@ CREATE TABLE `token_user` (
 
 CREATE TABLE `user` (
   `id_user` char(10) NOT NULL,
+  `id_marketplace` int(11) NOT NULL,
   `nama_user` varchar(128) NOT NULL,
   `alamat` varchar(128) NOT NULL,
   `jk` enum('L','P') NOT NULL,
@@ -468,9 +444,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nama_user`, `alamat`, `jk`, `telepon`, `email`, `password`, `gambar`, `id_role`) VALUES
-('PTS00001', 'Administrator', 'Bandung', 'L', '085864273756', 'admin@admin.com', '$2y$10$t2LIGNkyTgoo.wfFq65HU.RMH3.maKSCVMYL1.ix0l.xZjAOfi1PK', 'man-1.png', 1),
-('PTS00002', 'Kasir', '-', 'L', '-', 'kasir@kasir.com', '$2y$10$tqrl4BVfXlRj63.YLZAWiu9ukswR7oqWAMwXUeG/SlWDb5uEDOynO', '_93fb6471-efa1-4aa4-9840-93757244b30c.jpeg', 3);
+INSERT INTO `user` (`id_user`, `id_marketplace`, `nama_user`, `alamat`, `jk`, `telepon`, `email`, `password`, `gambar`, `id_role`) VALUES
+('PTS00001', 0, 'Administrator', 'Bandung', 'L', '085864273756', 'admin@admin.com', '$2y$10$t2LIGNkyTgoo.wfFq65HU.RMH3.maKSCVMYL1.ix0l.xZjAOfi1PK', 'man-1.png', 1),
+('PTS00002', 2, 'Kasir', '-', 'L', '-', 'kasir@kasir.com', '$2y$10$tqrl4BVfXlRj63.YLZAWiu9ukswR7oqWAMwXUeG/SlWDb5uEDOynO', '_93fb6471-efa1-4aa4-9840-93757244b30c.jpeg', 3);
 
 --
 -- Indexes for dumped tables
@@ -598,13 +574,13 @@ ALTER TABLE `backup`
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -634,7 +610,7 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengaturan`
@@ -646,7 +622,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `produk`

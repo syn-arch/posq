@@ -14,6 +14,7 @@ class user extends MX_Controller
         parent::__construct();
         cek_login();
         $this->load->model('user/user_model');
+        $this->load->model('marketplace/marketplace_model');
     }
 
     public function get_user_json()
@@ -63,6 +64,7 @@ class user extends MX_Controller
 
         $data['judul'] = "Tambah Sales";
         $data['role'] = $this->db->get('role')->result_array();
+        $data['marketplace'] = $this->db->get('marketplace')->result_array();
 
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('user/tambah', $data, FALSE);
@@ -91,6 +93,7 @@ class user extends MX_Controller
         $data['judul'] = "Ubah Sales";
         $data['role'] = $this->db->get('role')->result_array();
         $data['user'] = $this->user_model->get_user($id);
+        $data['marketplace'] = $this->db->get('marketplace')->result_array();
 
         $this->load->view('templates/header', $data, FALSE);
         $this->load->view('user/ubah', $data, FALSE);

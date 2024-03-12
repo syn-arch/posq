@@ -33,6 +33,7 @@ class Auth extends CI_Controller {
 					$session = [
 						'login' => true,
 						'id_user' => $user['id_user'],
+						'id_marketplace' => $user['id_marketplace'],
 						'id_role' => $user['id_role'],
 						'nama_user' => $user['nama_user'],
 						'level' => $user['nama_role']

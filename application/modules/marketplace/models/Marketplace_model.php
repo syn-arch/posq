@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('BASEPATH'))
-exit('No direct script access allowed');
+    exit('No direct script access allowed');
 
 class Marketplace_model extends CI_Model
 {
@@ -16,60 +16,76 @@ class Marketplace_model extends CI_Model
     }
 
     // datatables
-        function json() {
+    function json()
+    {
 
-            $menu = $this->uri->segment(1);
-            $id_menu = $this->db->get_where('menu', ['url' => $menu])->row_array()['id_menu'];
-            $id_role = $this->session->userdata('id_role');
+        $menu = $this->uri->segment(1);
+        $id_menu = $this->db->get_where('menu', ['url' => $menu])->row_array()['id_menu'];
+        $id_role = $this->session->userdata('id_role');
 
-            $this->db->select('c, u ,d');
-            $this->db->where('id_menu', $id_menu);
-            $this->db->where('id_role', $id_role);
-            $access = $this->db->get('akses_role')->row_array();
+        $this->db->select('c, u ,d');
+        $this->db->where('id_menu', $id_menu);
+        $this->db->where('id_role', $id_role);
+        $access = $this->db->get('akses_role')->row_array();
 
-            $this->datatables->select('id_marketplace,nama_marketplace,gambar,link_toko');
-            $this->datatables->from('marketplace');
-            //add this line for join
-            //$this->datatables->join('table2', 'marketplace.field = table2.field');
-            
+        $this->datatables->select('id_marketplace,nama_marketplace,gambar,link_toko');
+        $this->datatables->from('marketplace');
+        //add this line for join
+        //$this->datatables->join('table2', 'marketplace.field = table2.field');
 
-            if ($access['u'] == '1' && $access['d'] == '1') {
-                
-$this->datatables->add_column('action', 
+
+        if ($access['u'] == '1' && $access['d'] == '1') {
+
+            $this->datatables->add_column(
+                'action',
                 '<a href="'  . site_url('marketplace/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
                 <a href="'  . site_url('marketplace/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
-                <a data-href="'  . site_url('marketplace/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id_marketplace');
-            }else if( $access['u'] == '1'){
-                 
-$this->datatables->add_column('action', 
-                '<a href="'  . site_url('marketplace/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
-                <a href="'  . site_url('marketplace/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a>', 'id_marketplace');
-            } else if($access['d'] == '1'){
-                
-$this->datatables->add_column('action', 
-                '<a href="'  . site_url('marketplace/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
-                <a data-href="'  . site_url('marketplace/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>', 'id_marketplace');
-            }else{
-                 
-$this->datatables->add_column('action', '<a href="'  . site_url('marketplace/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a>','id_marketplace');
-            }
+                <a data-href="'  . site_url('marketplace/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>',
+                'id_marketplace'
+            );
+        } else if ($access['u'] == '1') {
 
-           
+            $this->datatables->add_column(
+                'action',
+                '<a href="'  . site_url('marketplace/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+                <a href="'  . site_url('marketplace/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a>',
+                'id_marketplace'
+            );
+        } else if ($access['d'] == '1') {
 
-            if ($access['d'] == '1') {
-                $this->datatables->add_column('hapus_bulk', 
-                '<input type="checkbox" class="data_checkbox" name="data[]" value="$1">', 'id_marketplace');
-            }else{
-                $this->datatables->add_column('hapus_bulk','', 'id_marketplace');
-            }
-            return $this->datatables->generate();
+            $this->datatables->add_column(
+                'action',
+                '<a href="'  . site_url('marketplace/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+                <a data-href="'  . site_url('marketplace/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>',
+                'id_marketplace'
+            );
+        } else {
+
+            $this->datatables->add_column('action', '<a href="'  . site_url('marketplace/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a>', 'id_marketplace');
         }
+
+
+
+        if ($access['d'] == '1') {
+            $this->datatables->add_column(
+                'hapus_bulk',
+                '<input type="checkbox" class="data_checkbox" name="data[]" value="$1">',
+                'id_marketplace'
+            );
+        } else {
+            $this->datatables->add_column('hapus_bulk', '', 'id_marketplace');
+        }
+        return $this->datatables->generate();
+    }
 
     // get all
     function get_all()
     {
         $this->db->select('*, ');
-$this->db->order_by($this->id, $this->order);
+        $this->db->order_by($this->id, $this->order);
+        if ($this->session->userdata('id_marketplace')) {
+            $this->db->where('marketplace.id_marketplace', $this->session->userdata('id_marketplace'));
+        }
         return $this->db->get($this->table)->result();
     }
 
@@ -77,30 +93,32 @@ $this->db->order_by($this->id, $this->order);
     function get_by_id($id)
     {
         $this->db->select('*, ');
-$this->db->where($this->id, $id);
+        $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id_marketplace', $q);
-$this->db->select('*, ');
-	$this->db->or_like('nama_marketplace', $q);
-	$this->db->or_like('gambar', $q);
-	$this->db->or_like('link_toko', $q);
-	$this->db->from($this->table);
+        $this->db->select('*, ');
+        $this->db->or_like('nama_marketplace', $q);
+        $this->db->or_like('gambar', $q);
+        $this->db->or_like('link_toko', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_marketplace', $q);
-$this->db->select('*, ');
-	$this->db->or_like('nama_marketplace', $q);
-	$this->db->or_like('gambar', $q);
-	$this->db->or_like('link_toko', $q);
-	$this->db->limit($limit, $start);
+        $this->db->select('*, ');
+        $this->db->or_like('nama_marketplace', $q);
+        $this->db->or_like('gambar', $q);
+        $this->db->or_like('link_toko', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -123,7 +141,6 @@ $this->db->select('*, ');
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-
 }
 
 /* End of file Marketplace_model.php */

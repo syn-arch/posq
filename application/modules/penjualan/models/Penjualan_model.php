@@ -62,6 +62,9 @@ class Penjualan_model extends CI_Model
         if ($this->session->userdata('level') == 'reseller lukman') {
             $this->datatables->where('penjualan.id_user', $this->session->userdata('id_user'));
         }
+        if ($this->session->userdata('id_marketplace')) {
+            $this->datatables->where('penjualan.id_marketplace', $this->session->userdata('id_marketplace'));
+        }
         if ($id_status) {
             $this->datatables->where('penjualan.id_status', $id_status);
         }
@@ -248,6 +251,9 @@ class Penjualan_model extends CI_Model
         }
         if ($this->session->userdata('level') != 'Admin') {
             $this->db->where('penjualan.id_user', $this->session->userdata('id_user'));
+        }
+        if ($this->session->userdata('id_marketplace')) {
+            $this->db->where('penjualan.id_marketplace', $this->session->userdata('id_marketplace'));
         }
         if ($id_status) {
             $this->db->where('penjualan.id_status', $id_status);

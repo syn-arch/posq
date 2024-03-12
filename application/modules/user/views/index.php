@@ -41,6 +41,7 @@ $access = $this->db->get('akses_role')->row_array();
                                 <th>Telepon</th>
                                 <th>Email</th>
                                 <th>Level</th>
+                                <th>Marketplace</th>
                                 <th><i class="fa fa-cogs"></i></th>
                             </tr>
                         </thead>

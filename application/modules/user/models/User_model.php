@@ -6,9 +6,10 @@ class user_model extends CI_Model
 
     public function get_user_json()
     {
-        $this->datatables->select('id_user, nama_user, jk, alamat, telepon, email, gambar, nama_role');
+        $this->datatables->select('id_user, nama_user, jk, alamat, telepon, email, user.gambar, nama_role, nama_marketplace');
         $this->datatables->from('user');
         $this->datatables->join('role', 'id_role', 'left');
+        $this->datatables->join('marketplace', 'id_marketplace', 'left');
         return $this->datatables->generate();
     }
 
@@ -39,6 +40,7 @@ class user_model extends CI_Model
     {
         $data = [
             'id_user' => htmlspecialchars($post['id_user']),
+            'id_marketplace' => htmlspecialchars($post['id_marketplace']),
             'nama_user' => htmlspecialchars($post['nama_user']),
             'jk' => htmlspecialchars($post['jk']),
             'alamat' => htmlspecialchars($post['alamat']),
@@ -63,7 +65,8 @@ class user_model extends CI_Model
             'alamat' => htmlspecialchars($post['alamat']),
             'email' => htmlspecialchars($post['email']),
             'telepon' => htmlspecialchars($post['telepon']),
-            'id_role' => htmlspecialchars($post['id_role'])
+            'id_role' => htmlspecialchars($post['id_role']),
+            'id_marketplace' => htmlspecialchars($post['id_marketplace']),
         ];
 
         if ($_FILES['gambar']['name']) {
