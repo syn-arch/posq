@@ -33,6 +33,11 @@
                                 <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk" value="<?php echo $nama_produk; ?>" />
                                 <?php echo form_error('nama_produk', '<small style="color:red">', '</small>') ?>
                             </div>
+                            <div class="form-group <?php if (form_error('sku')) echo 'has-error' ?> ">
+                                <label for="sku">SKU</label>
+                                <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU" value="<?php echo $sku; ?>" />
+                                <?php echo form_error('sku', '<small style="color:red">', '</small>') ?>
+                            </div>
                             <div class="form-group <?php if (form_error('satuan')) echo 'has-error' ?> ">
                                 <label for="satuan">Satuan</label>
                                 <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />

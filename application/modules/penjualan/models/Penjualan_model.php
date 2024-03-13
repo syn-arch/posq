@@ -201,6 +201,7 @@ class Penjualan_model extends CI_Model
             'bayar' => str_replace('.', '', $post['bayar']),
             'keterangan' => $post['keterangan'],
             'sl' => $post['sl'],
+            'tanggal_edit' => date('Y-m-d H:i:s')
         ];
 
         if ($_FILES['lampiran']['name']) {

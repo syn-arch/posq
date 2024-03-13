@@ -110,7 +110,7 @@
                                     </tr>
                                     <tr>
                                         <th>Terakhir Di Edit Oleh : </th>
-                                        <td><?= $user_edit ?></td>
+                                        <td><?= $user_edit . ' Pada Tanggal ' . date('d F Y H:i:s', strtotime($tanggal_edit)) ?></td>
                                         <td></td>
                                         <th class="text-right">Kembalian</th>
                                         <td class="text-right"><?= number_format($bayar - $total, 0, '', '.') ?></td>

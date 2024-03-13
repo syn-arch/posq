@@ -26,6 +26,7 @@
             <th>No</th>
             <th>Id Kategori</th>
             <th>Nama Produk</th>
+            <th>SKU</th>
             <th>Satuan</th>
             <th>Harga Modal</th>
             <th>Harga Jual</th>
@@ -40,6 +41,7 @@
                 <td><?php echo ++$start ?></td>
                 <td><?php echo $produk->id_kategori ?></td>
                 <td><?php echo $produk->nama_produk ?></td>
+                <td><?php echo $produk->sku ?></td>
                 <td><?php echo $produk->satuan ?></td>
                 <td><?php echo $produk->harga_modal ?></td>
                 <td><?php echo $produk->harga_jual ?></td>

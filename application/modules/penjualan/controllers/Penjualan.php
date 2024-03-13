@@ -97,6 +97,7 @@ class Penjualan extends MX_Controller
                 'telepon' => $row->telepon,
                 'lampiran' => $row->lampiran,
                 'user_edit' =>  $row->user_edit,
+                'tanggal_edit' =>  $row->tanggal_edit,
             );
 
 
@@ -307,7 +308,7 @@ class Penjualan extends MX_Controller
 
                 $id_penjualan = $this->db->insert_id();
 
-                $produk = $this->db->get_where('produk', ['nama_produk' => trim(strtolower($sheetData[$i]['4']))])->row();
+                $produk = $this->db->get_where('produk', ['sku' => trim($sheetData[$i]['4'])])->row();
 
                 $this->db->insert('detail_penjualan', [
                     'id_penjualan' => $id_penjualan,

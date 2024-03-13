@@ -28,7 +28,7 @@ class Produk_model extends CI_Model
         $this->db->where('id_role', $id_role);
         $access = $this->db->get('akses_role')->row_array();
 
-        $this->datatables->select('id_produk,kategori.id_kategori,nama_produk,satuan,harga_modal,harga_jual,stok,gambar,keterangan,nama_kategori');
+        $this->datatables->select('id_produk,kategori.id_kategori,nama_produk,sku,satuan,harga_modal,harga_jual,stok,gambar,keterangan,nama_kategori');
         $this->datatables->from('produk');
         //add this line for join
         //$this->datatables->join('table2', 'produk.field = table2.field');
@@ -105,6 +105,7 @@ class Produk_model extends CI_Model
         $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori', 'left');
         $this->db->or_like('kategori.id_kategori', $q);
         $this->db->or_like('nama_produk', $q);
+        $this->db->or_like('sku', $q);
         $this->db->or_like('satuan', $q);
         $this->db->or_like('harga_modal', $q);
         $this->db->or_like('harga_jual', $q);
@@ -124,6 +125,7 @@ class Produk_model extends CI_Model
         $this->db->join('kategori', 'kategori.id_kategori = produk.id_kategori', 'left');
         $this->db->or_like('kategori.id_kategori', $q);
         $this->db->or_like('nama_produk', $q);
+        $this->db->or_like('sku', $q);
         $this->db->or_like('satuan', $q);
         $this->db->or_like('harga_modal', $q);
         $this->db->or_like('harga_jual', $q);

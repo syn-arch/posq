@@ -27,6 +27,10 @@
                                 <td><?php echo $nama_produk; ?></td>
                             </tr>
                             <tr>
+                                <td>SKU</td>
+                                <td><?php echo $sku; ?></td>
+                            </tr>
+                            <tr>
                                 <td>Satuan</td>
                                 <td><?php echo $satuan; ?></td>
                             </tr>

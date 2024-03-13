@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 12, 2024 at 10:03 AM
+-- Generation Time: Mar 13, 2024 at 11:41 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -125,7 +125,7 @@ CREATE TABLE `detail_penjualan` (
 
 INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
 (1, 2, 2, 'Laptop Acer Swift 3', 2, 2500000, 4500000, 9000000),
-(2, 3, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
+(3, 3, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000);
 
 -- --------------------------------------------------------
 
@@ -304,6 +304,7 @@ CREATE TABLE `penjualan` (
   `alamat` varchar(255) NOT NULL,
   `telepon` varchar(255) NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tanggal_edit` timestamp NOT NULL DEFAULT current_timestamp(),
   `sub_total` int(11) NOT NULL,
   `diskon` int(11) NOT NULL,
   `total` int(11) NOT NULL,
@@ -317,9 +318,9 @@ CREATE TABLE `penjualan` (
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_user_edit`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`, `sl`) VALUES
-(2, 'PTS00001', '', 1, 0, 'RP0000001', '1121', 'Adi', '83822623170', 'Bandung', '2023-12-31 17:00:00', 9000000, 0, 9000000, 9000000, '', '', 0),
-(3, 'PTS00001', '', 2, 0, 'RP0000002', '1123', 'Sukmana', '-', '-', '2023-12-31 17:00:00', 13500000, 0, 13500000, 13500000, '', '', 0);
+INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_user_edit`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `tanggal_edit`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`, `sl`) VALUES
+(2, 'PTS00001', '', 1, 0, 'RP0000001', '1121', 'Adi', '83822623170', 'Bandung', '2023-12-31 17:00:00', '2024-03-13 10:37:46', 9000000, 0, 9000000, 9000000, '', '', 0),
+(3, 'PTS00001', 'PTS00001', 2, 1, 'RP0000002', '1123', 'Sukmana', '-', '-', '2023-12-31 17:00:00', '2024-03-13 10:41:13', 13500000, 0, 13500000, 13500000, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -331,6 +332,7 @@ CREATE TABLE `produk` (
   `id_produk` int(11) NOT NULL,
   `id_kategori` int(11) NOT NULL,
   `nama_produk` varchar(255) NOT NULL,
+  `sku` varchar(255) NOT NULL,
   `harga_modal` int(11) NOT NULL,
   `harga_jual` int(11) NOT NULL,
   `stok` float NOT NULL,
@@ -343,9 +345,9 @@ CREATE TABLE `produk` (
 -- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 8000000, 13500000, 93, 'UNIT', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
-(2, 1, 'Laptop Acer Swift 3', 2500000, 4500000, -1, 'PCS', 'default.png', '');
+INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `sku`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', '', 8000000, 13500000, 93, 'UNIT', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(2, 1, 'Laptop Acer Swift 3', '1122', 2500000, 4500000, -1, 'PCS', 'default.png', '');
 
 -- --------------------------------------------------------
 
@@ -580,7 +582,7 @@ ALTER TABLE `detail_pembelian`
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kategori`

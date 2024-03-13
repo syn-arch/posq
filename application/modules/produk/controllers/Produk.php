@@ -44,6 +44,7 @@ class Produk extends MX_Controller
                 'id_produk' => $row->id_produk,
                 'id_kategori' => $row->id_kategori,
                 'nama_produk' => $row->nama_produk,
+                'sku' => $row->sku,
                 'satuan' => $row->satuan,
                 'harga_modal' => $row->harga_modal,
                 'harga_jual' => $row->harga_jual,
@@ -85,6 +86,7 @@ class Produk extends MX_Controller
             'id_produk' => set_value('id_produk'),
             'id_kategori' => set_value('id_kategori'),
             'nama_produk' => set_value('nama_produk'),
+            'sku' => set_value('sku'),
             'satuan' => set_value('satuan'),
             'harga_modal' => set_value('harga_modal'),
             'harga_jual' => set_value('harga_jual'),
@@ -110,6 +112,7 @@ class Produk extends MX_Controller
             $data = array(
                 'id_kategori' => $this->input->post('id_kategori', TRUE),
                 'nama_produk' => $this->input->post('nama_produk', TRUE),
+                'sku' => $this->input->post('sku', TRUE),
                 'satuan' => $this->input->post('satuan', TRUE),
                 'harga_modal' => $this->input->post('harga_modal', TRUE),
                 'harga_jual' => $this->input->post('harga_jual', TRUE),
@@ -142,6 +145,7 @@ class Produk extends MX_Controller
                 'id_produk' => set_value('id_produk', $row->id_produk),
                 'id_kategori' => set_value('id_kategori', $row->id_kategori),
                 'nama_produk' => set_value('nama_produk', $row->nama_produk),
+                'sku' => set_value('sku', $row->sku),
                 'satuan' => set_value('satuan', $row->satuan),
                 'harga_modal' => set_value('harga_modal', $row->harga_modal),
                 'harga_jual' => set_value('harga_jual', $row->harga_jual),
@@ -171,6 +175,7 @@ class Produk extends MX_Controller
             $data = array(
                 'id_kategori' => $this->input->post('id_kategori', TRUE),
                 'nama_produk' => $this->input->post('nama_produk', TRUE),
+                'sku' => $this->input->post('sku', TRUE),
                 'satuan' => $this->input->post('satuan', TRUE),
                 'harga_modal' => $this->input->post('harga_modal', TRUE),
                 'harga_jual' => $this->input->post('harga_jual', TRUE),
@@ -243,6 +248,7 @@ class Produk extends MX_Controller
         xlsWriteLabel($tablehead, $kolomhead++, "No");
         xlsWriteLabel($tablehead, $kolomhead++, "Id Kategori");
         xlsWriteLabel($tablehead, $kolomhead++, "Nama Produk");
+        xlsWriteLabel($tablehead, $kolomhead++, "SKU");
         xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
         xlsWriteLabel($tablehead, $kolomhead++, "Harga Modal");
         xlsWriteLabel($tablehead, $kolomhead++, "Harga Jual");
@@ -257,6 +263,7 @@ class Produk extends MX_Controller
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_kategori);
             xlsWriteLabel($tablebody, $kolombody++, $data->nama_produk);
+            xlsWriteLabel($tablebody, $kolombody++, $data->sku);
             xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
             xlsWriteNumber($tablebody, $kolombody++, $data->harga_modal);
             xlsWriteNumber($tablebody, $kolombody++, $data->harga_jual);

@@ -45,6 +45,7 @@ $access = $this->db->get('akses_role')->row_array();
                                 <?php endif ?>
                                 <th>Nama Kategori</th>
                                 <th>Nama Produk</th>
+                                <th>SKU</th>
                                 <th>Satuan</th>
                                 <th>Harga Modal</th>
                                 <th>Harga Jual</th>
@@ -120,6 +121,8 @@ $access = $this->db->get('akses_role')->row_array();
                         }, {
                             "data": "nama_produk"
                         }, {
+                            "data": "sku"
+                        }, {
                             "data": "satuan"
                         }, {
                             "data": "harga_modal",
@@ -187,6 +190,8 @@ $access = $this->db->get('akses_role')->row_array();
                             "data": "nama_kategori"
                         }, {
                             "data": "nama_produk"
+                        }, {
+                            "data": "sku"
                         }, {
                             "data": "satuan"
                         }, {
@@ -261,6 +266,8 @@ $access = $this->db->get('akses_role')->row_array();
                         }, {
                             "data": "nama_produk"
                         }, {
+                            "data": "sku"
+                        }, {
                             "data": "satuan"
                         }, {
                             "data": "harga_modal",
@@ -328,6 +335,8 @@ $access = $this->db->get('akses_role')->row_array();
                             "data": "nama_kategori"
                         }, {
                             "data": "nama_produk"
+                        }, {
+                            "data": "sku"
                         }, {
                             "data": "satuan"
                         }, {
