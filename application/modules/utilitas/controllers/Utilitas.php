@@ -22,6 +22,17 @@ class utilitas extends MX_Controller
         $this->load->view('templates/footer', $data, FALSE);
     }
 
+    public function log_aktivitas()
+    {
+        $data['judul'] = "Log Aktivitas";
+        $this->db->join('user', 'id_user');
+        $data['log_aktivitas'] = $this->db->get('log_aktivitas')->result_array();
+
+        $this->load->view('templates/header', $data, FALSE);
+        $this->load->view('utilitas/log_aktivitas', $data, FALSE);
+        $this->load->view('templates/footer', $data, FALSE);
+    }
+
     public function backup_db()
     {
         //load helpers

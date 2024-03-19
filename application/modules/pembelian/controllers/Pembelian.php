@@ -16,6 +16,17 @@ class pembelian extends MX_Controller
         $this->load->library('form_validation');
     }
 
+    public function json()
+    {
+        header('Content-Type: application/json');
+
+        $dari = $this->input->get('dari');
+        $sampai = $this->input->get('sampai');
+        $id_status = $this->input->get('id_status');
+
+        echo $this->pembelian_model->json($dari, $sampai, $id_status);
+    }
+
     public function index()
     {
         $q = urldecode($this->input->get('q', TRUE));
@@ -111,14 +122,13 @@ class pembelian extends MX_Controller
             $this->db->delete('pembelian', ['id_pembelian' => $id]);
         }
     }
-
     public function update_bulk()
     {
         cek_akses('u');
 
-        foreach ($_POST['data'] as $id) {
+        foreach ($_POST['data'] as $row) {
             $this->db->set('id_status', $_POST['id_status']);
-            $this->db->where('id_pembelian', $id);
+            $this->db->where('id_pembelian', $row);
             $this->db->update('pembelian');
         }
     }

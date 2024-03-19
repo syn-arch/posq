@@ -193,6 +193,46 @@ class laporan_model extends CI_Model
         return $this->db->get('penjualan')->result_array();
     }
 
+    private function compareDates($a, $b)
+    {
+        $dateA = strtotime($a['tanggal']);
+        $dateB = strtotime($b['tanggal']);
+        return $dateA - $dateB;
+    }
+
+    public function get_persediaan($dari = '', $sampai = '')
+    {
+        $query = "SELECT 
+        id_penjualan,
+        tanggal,
+        nomor_invoice,
+        nama_produk,
+        qty
+        FROM detail_penjualan 
+        JOIN penjualan USING(id_penjualan) 
+        WHERE DATE(tanggal) BETWEEN '$dari' AND '$sampai'";
+
+        $penjualan =  $this->db->query($query)->result_array();
+
+        $query2 = "SELECT 
+        id_pembelian,
+        tanggal,
+        nomor_invoice,
+        nama_produk,
+        qty
+        FROM pembelian 
+        JOIN detail_pembelian USING(id_pembelian) 
+        WHERE DATE(tanggal) BETWEEN '$dari' AND '$sampai'";
+
+        $pembelian = $this->db->query($query2)->result_array();
+
+        $transaksi =  array_merge($penjualan, $pembelian);
+        usort($transaksi, array($this, 'compareDates'));
+
+        return $transaksi;
+
+    }
+
     public function get_per_jenis_pelanggan($dari = '', $sampai = '', $id_outlet = '')
     {
         $this->db->select('jenis, COUNT(id_penjualan) AS penjualan');

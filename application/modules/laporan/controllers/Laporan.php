@@ -248,6 +248,22 @@ class laporan extends MX_Controller
         $this->load->view('templates/footer', $data, FALSE);
     }
 
+    public function persediaan()
+    {
+        $dari = $this->input->get('dari');
+        $sampai = $this->input->get('sampai');
+
+        if ($dari != '') {
+            $data['laporan'] = $this->laporan_model->get_persediaan($dari, $sampai);
+        }
+
+        $data['judul'] = "Laporan Persediaan Produk";
+
+        $this->load->view('templates/header', $data, FALSE);
+        $this->load->view('laporan/persediaan', $data, FALSE);
+        $this->load->view('templates/footer', $data, FALSE);
+    }
+
     public function export_per_pelanggan($dari = '', $sampai = '', $id_outlet = '')
     {
         if ($dari != '') {
@@ -476,7 +492,6 @@ class laporan extends MX_Controller
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
     }
-
 }
 
 /* End of file laporan.php */

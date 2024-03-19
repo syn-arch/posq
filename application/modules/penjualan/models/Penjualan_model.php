@@ -176,6 +176,8 @@ class Penjualan_model extends CI_Model
             $this->db->update('produk');
         }
 
+        add_log('Penjualan', $id_penjualan, 'Tambah', $no_invoice);
+
         $this->db->trans_complete();
 
         return $id_penjualan;
@@ -235,6 +237,9 @@ class Penjualan_model extends CI_Model
             $this->db->where('id_produk', $post['id_produk'][$i]);
             $this->db->update('produk');
         }
+
+        add_log('Penjualan', $id, 'Edit', $post['no_invoice']);
+
 
         $this->db->trans_complete();
     }
@@ -336,6 +341,10 @@ class Penjualan_model extends CI_Model
     // delete data
     function delete($id)
     {
+        $no_invoice = $this->db->get_where('penjualan', ['id_penjualan' => $id])->row('nomor_invoice');
+
+        add_log('Penjualan', $id, 'Hapus', $no_invoice);
+
         $detail_penjualan = $this->db->get_where('detail_penjualan', ['id_penjualan' => $id])->result_array();
         foreach ($detail_penjualan as $row) {
             $this->db->set('stok', 'stok + ' . $row['qty'], FALSE);

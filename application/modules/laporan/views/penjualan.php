@@ -67,6 +67,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="box box-primary box-solid">
+                            <div class="box-header">
+                                <h4 class="box-title">Laporan</h4>
+                            </div>
+                            <h3 class="text-center">Persediaan</h3>
+                            <div class="box-body">
+                                <a href="<?php echo base_url('laporan/persediaan') ?>" class="btn btn-primary btn-block"><i class="fa fa-arrow-right"></i> Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

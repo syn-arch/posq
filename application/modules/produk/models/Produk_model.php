@@ -140,6 +140,8 @@ class Produk_model extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
+        $id = $this->db->insert_id();
+        add_log('Produk', $id, 'Tambah', $data['nama_produk']);
     }
 
     // update data
@@ -147,11 +149,14 @@ class Produk_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
+        add_log('Produk', $id, 'Edit', $data['nama_produk']);
     }
 
     // delete data
     function delete($id)
     {
+        $data = $this->get_by_id($id);
+        add_log('Produk', $id, 'Hapus', $data->nama_produk);
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }

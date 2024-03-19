@@ -117,6 +117,18 @@ function delImage($table, $id, $column = 'gambar')
     }
 }
 
+function add_log($table, $id, $aksi, $keterangan = null)
+{
+    $ci = &get_instance();
+    $ci->db->insert('log_aktivitas', [
+        'id_user' => $ci->session->userdata('id_user'),
+        'tablename' => $table,
+        'table_id' => $id,
+        'aksi' => $aksi,
+        'keterangan' => $keterangan
+    ]);
+}
+
 function autoID($str, $table)
 {
     // PLG00001
