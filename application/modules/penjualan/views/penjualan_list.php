@@ -130,6 +130,8 @@ $access = $this->db->get('akses_role')->row_array();
         </div>
     </div>
 
+    <input type="text" id="search-input" class="form-control">
+
     <div class="modal fade" id="import" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -236,7 +238,7 @@ $access = $this->db->get('akses_role')->row_array();
             };
 
             if (up == '1' && del == '1') {
-                var t = $(".dt").dataTable({
+                var t = $(".dt").DataTable({
                     initComplete: function() {
                         var api = this.api();
                         $('#mytable_filter input')
@@ -336,12 +338,12 @@ $access = $this->db->get('akses_role')->row_array();
                     }
                 });
             } else if (up == '1') {
-                var t = $(".dt").dataTable({
+                var t = $(".dt").DataTable({
                     initComplete: function() {
                         var api = this.api();
                         $('#mytable_filter input')
-                            .off('.DT')
-                            .on('keyup.DT', function(e) {
+                            .on('keyup', function(e) {
+                                console.log(keyCode)
                                 if (e.keyCode == 13) {
                                     api.search(this.value).draw();
                                 }
@@ -419,7 +421,7 @@ $access = $this->db->get('akses_role')->row_array();
                     }
                 });
             } else if (del == '1') {
-                var t = $(".dt").dataTable({
+                var t = $(".dt").DataTable({
                     initComplete: function() {
                         var api = this.api();
                         $('#mytable_filter input')
@@ -507,7 +509,7 @@ $access = $this->db->get('akses_role')->row_array();
                     }
                 });
             } else {
-                var t = $(".dt").dataTable({
+                var t = $(".dt").DataTable({
                     initComplete: function() {
                         var api = this.api();
                         $('#mytable_filter input')
@@ -590,7 +592,6 @@ $access = $this->db->get('akses_role')->row_array();
                     }
                 });
             }
-
 
         });
         const table_name = 'penjualan';

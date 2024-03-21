@@ -167,7 +167,7 @@ class Penjualan_model extends CI_Model
                 'nama_produk' => $post['nama_produk'][$i],
                 'qty' => $post['qty'][$i],
                 'harga_modal' => $post['harga_modal'][$i],
-                'harga_jual' => $post['harga_jual'][$i],
+                'harga_jual' => str_replace('.', '', $post['harga_jual'][$i]),
                 'total_harga' => str_replace('.', '', $post['total_harga'][$i]),
             ]);
 
@@ -229,7 +229,7 @@ class Penjualan_model extends CI_Model
                 'nama_produk' => $post['nama_produk'][$i],
                 'qty' => $post['qty'][$i],
                 'harga_modal' => $post['harga_modal'][$i],
-                'harga_jual' => $post['harga_jual'][$i],
+                'harga_jual' => str_replace('.', '', $post['harga_jual'][$i]),
                 'total_harga' => str_replace('.', '', $post['total_harga'][$i]),
             ]);
 

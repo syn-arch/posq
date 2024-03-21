@@ -1,0 +1,153 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Penawaran_model extends CI_Model
+{
+
+    public $table = 'penawaran';
+    public $id = 'id_penawaran';
+    public $order = 'ASC';
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    // datatables
+    function json()
+    {
+
+        $menu = $this->uri->segment(1);
+        $id_menu = $this->db->get_where('menu', ['url' => $menu])->row_array()['id_menu'];
+        $id_role = $this->session->userdata('id_role');
+
+        $this->db->select('c, u ,d');
+        $this->db->where('id_menu', $id_menu);
+        $this->db->where('id_role', $id_role);
+        $access = $this->db->get('akses_role')->row_array();
+
+        $this->datatables->select('id_penawaran,nama_penawaran,produk,lampiran,keterangan,status');
+        $this->datatables->from('penawaran');
+        //add this line for join
+        //$this->datatables->join('table2', 'penawaran.field = table2.field');
+
+
+        if ($access['u'] == '1' && $access['d'] == '1') {
+
+            $this->datatables->add_column(
+                'action',
+                '<a href="'  . site_url('penawaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+                <a href="'  . site_url('penawaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a> 
+                <a data-href="'  . site_url('penawaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>',
+                'id_penawaran'
+            );
+        } else if ($access['u'] == '1') {
+
+            $this->datatables->add_column(
+                'action',
+                '<a href="'  . site_url('penawaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+                <a href="'  . site_url('penawaran/update/$1') . '" class="btn btn-warning"><i class="fa fa-edit"></i></a>',
+                'id_penawaran'
+            );
+        } else if ($access['d'] == '1') {
+
+            $this->datatables->add_column(
+                'action',
+                '<a href="'  . site_url('penawaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a> 
+                <a data-href="'  . site_url('penawaran/delete/$1') . '" class="btn btn-danger hapus-data"><i class="fa fa-trash"></i></a>',
+                'id_penawaran'
+            );
+        } else {
+
+            $this->datatables->add_column('action', '<a href="'  . site_url('penawaran/read/$1') . '" class="btn btn-info"><i class="fa fa-eye"></i></a>', 'id_penawaran');
+        }
+
+
+
+        if ($access['d'] == '1') {
+            $this->datatables->add_column(
+                'hapus_bulk',
+                '<input type="checkbox" class="data_checkbox" name="data[]" value="$1">',
+                'id_penawaran'
+            );
+        } else {
+            $this->datatables->add_column('hapus_bulk', '', 'id_penawaran');
+        }
+        return $this->datatables->generate();
+    }
+
+    // get all
+    function get_all()
+    {
+        $this->db->select('*, ');
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
+    // get data by id
+    function get_by_id($id)
+    {
+        $this->db->select('*, ');
+        $this->db->where($this->id, $id);
+        return $this->db->get($this->table)->row();
+    }
+
+    // get total rows
+    function total_rows($q = NULL)
+    {
+        $this->db->like('id_penawaran', $q);
+        $this->db->select('*, ');
+        $this->db->or_like('nama_penawaran', $q);
+        $this->db->or_like('produk', $q);
+        $this->db->or_like('lampiran', $q);
+        $this->db->or_like('keterangan', $q);
+        $this->db->or_like('status', $q);
+        $this->db->from($this->table);
+        return $this->db->count_all_results();
+    }
+
+    // get data with limit and search
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->like('id_penawaran', $q);
+        $this->db->select('*, ');
+        $this->db->or_like('nama_penawaran', $q);
+        $this->db->or_like('produk', $q);
+        $this->db->or_like('lampiran', $q);
+        $this->db->or_like('keterangan', $q);
+        $this->db->or_like('status', $q);
+        $this->db->limit($limit, $start);
+        return $this->db->get($this->table)->result();
+    }
+
+    // insert data
+    function insert($data)
+    {
+        $this->db->insert($this->table, $data);
+
+        return $this->db->insert_id();
+    }
+
+    // update data
+    function update($id, $data)
+    {
+        $this->db->where($this->id, $id);
+        $this->db->update($this->table, $data);
+    }
+
+    // delete data
+    function delete($id)
+    {
+        $this->db->where($this->id, $id);
+        $this->db->delete($this->table);
+    }
+}
+
+/* End of file Penawaran_model.php */
+/* Location: ./application/models/Penawaran_model.php */
+/* Please DO NOT modify this information : */
+/* Generated by Harviacode Codeigniter CRUD Generator 2024-03-21 15:17:45 */
+/* http://harviacode.com */

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 19, 2024 at 02:45 PM
+-- Generation Time: Mar 21, 2024 at 10:19 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -46,33 +46,36 @@ INSERT INTO `akses_role` (`akses_role`, `id_menu`, `id_role`, `c`, `u`, `d`) VAL
 (498, 80, 3, 0, 0, 0),
 (499, 81, 3, 1, 1, 1),
 (500, 22, 3, 0, 0, 0),
-(528, 1, 1, 0, 0, 0),
-(529, 10, 1, 1, 1, 1),
-(530, 11, 1, 0, 0, 0),
-(531, 22, 1, 0, 0, 0),
-(532, 23, 1, 0, 0, 0),
-(533, 24, 1, 0, 0, 0),
-(534, 27, 1, 0, 0, 0),
-(535, 62, 1, 0, 0, 0),
-(536, 64, 1, 0, 0, 0),
-(537, 76, 1, 1, 1, 1),
-(538, 77, 1, 1, 1, 1),
-(539, 78, 1, 1, 1, 1),
-(540, 79, 1, 1, 1, 1),
-(541, 80, 1, 0, 0, 0),
-(542, 81, 1, 1, 1, 1),
-(543, 85, 1, 0, 0, 0),
-(544, 87, 1, 0, 0, 0),
-(545, 88, 1, 0, 0, 0),
-(546, 89, 1, 0, 0, 0),
-(547, 91, 1, 0, 0, 0),
-(548, 92, 1, 1, 1, 1),
-(549, 93, 1, 1, 1, 1),
-(550, 94, 1, 0, 0, 0),
-(551, 95, 1, 0, 0, 0),
-(552, 96, 1, 1, 1, 1),
-(553, 97, 1, 0, 0, 0),
-(554, 101, 1, 0, 0, 0);
+(555, 1, 1, 0, 0, 0),
+(556, 10, 1, 1, 1, 1),
+(557, 11, 1, 0, 0, 0),
+(558, 22, 1, 0, 0, 0),
+(559, 23, 1, 0, 0, 0),
+(560, 24, 1, 0, 0, 0),
+(561, 27, 1, 0, 0, 0),
+(562, 62, 1, 0, 0, 0),
+(563, 64, 1, 0, 0, 0),
+(564, 76, 1, 1, 1, 1),
+(565, 77, 1, 1, 1, 1),
+(566, 78, 1, 1, 1, 1),
+(567, 79, 1, 1, 1, 1),
+(568, 80, 1, 0, 0, 0),
+(569, 81, 1, 1, 1, 1),
+(570, 85, 1, 0, 0, 0),
+(571, 87, 1, 0, 0, 0),
+(572, 88, 1, 0, 0, 0),
+(573, 89, 1, 0, 0, 0),
+(574, 91, 1, 0, 0, 0),
+(575, 92, 1, 1, 1, 1),
+(576, 93, 1, 1, 1, 1),
+(577, 94, 1, 0, 0, 0),
+(578, 95, 1, 0, 0, 0),
+(579, 96, 1, 1, 1, 1),
+(580, 97, 1, 0, 0, 0),
+(581, 101, 1, 0, 0, 0),
+(582, 102, 1, 1, 1, 1),
+(583, 103, 1, 0, 0, 0),
+(584, 104, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -103,14 +106,6 @@ CREATE TABLE `detail_pembelian` (
   `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `detail_pembelian`
---
-
-INSERT INTO `detail_pembelian` (`id_detail_pembelian`, `id_pembelian`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
-(1, 1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 2, 8000000, 13500000, 27000000),
-(2, 2, 2, 'Laptop Acer Swift 3', 6, 2500000, 4500000, 27000000);
-
 -- --------------------------------------------------------
 
 --
@@ -133,11 +128,8 @@ CREATE TABLE `detail_penjualan` (
 --
 
 INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `id_penjualan`, `id_produk`, `nama_produk`, `qty`, `harga_modal`, `harga_jual`, `total_harga`) VALUES
-(1, 2, 2, 'Laptop Acer Swift 3', 2, 2500000, 4500000, 9000000),
-(4, 3, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
-(6, 4, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
-(7, 5, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 1, 8000000, 13500000, 13500000),
-(8, 6, 2, 'Laptop Acer Swift 3', 2, 2500000, 4500000, 9000000);
+(5, 2, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', 2, 8000000, 5000, 10000),
+(6, 2, 2, 'Laptop Acer Swift 3', 1, 2500000, 4500000, 4500000);
 
 -- --------------------------------------------------------
 
@@ -186,7 +178,12 @@ INSERT INTO `log_aktivitas` (`id_log_aktivitas`, `id_user`, `tablename`, `table_
 (6, 'PTS00001', 'Penjualan', '7', 'Tambah', '2024-03-19 13:37:22', 'RP0000006'),
 (7, 'PTS00001', 'Pembelian', '3', 'Tambah', '2024-03-19 13:39:15', 'RP0000003'),
 (8, 'PTS00001', 'Pembelian', '3', 'Edit', '2024-03-19 13:39:26', 'RP0000003'),
-(9, 'PTS00001', 'Pembelian', '3', 'Hapus', '2024-03-19 13:39:53', 'RP0000003');
+(9, 'PTS00001', 'Pembelian', '3', 'Hapus', '2024-03-19 13:39:53', 'RP0000003'),
+(10, 'PTS00001', 'Penjualan', '8', 'Tambah', '2024-03-21 07:46:40', 'RP0000006'),
+(11, 'PTS00001', 'Penjualan', '1', 'Tambah', '2024-03-21 07:48:16', 'RP0000001'),
+(12, 'PTS00001', 'Penjualan', '1', 'Hapus', '2024-03-21 07:48:42', 'RP0000001'),
+(13, 'PTS00001', 'Penjualan', '2', 'Tambah', '2024-03-21 07:48:56', 'RP0000001'),
+(14, 'PTS00001', 'Penjualan', '2', 'Edit', '2024-03-21 07:50:02', 'RP0000001');
 
 -- --------------------------------------------------------
 
@@ -235,10 +232,10 @@ INSERT INTO `menu` (`id_menu`, `nama_menu`, `icon`, `ada_submenu`, `submenu`, `u
 (1, 'Dashboard', 'fa fa-tachometer-alt', 0, 0, 'dashboard', 1, 0, 0),
 (10, 'Data Sales', 'fas fa-user-shield', 0, 87, 'user', 1, 1, 0),
 (11, 'Akses Menu Sales', 'fas fa-shield-alt', 0, 87, 'user/akses', 2, 0, 0),
-(22, 'Profil Saya', 'fa fa-user', 0, 0, 'profil', 8, 0, 0),
-(23, 'Utilitas', 'fas fa-cog', 1, 0, 'utilitas', 7, 0, 0),
+(22, 'Profil Saya', 'fa fa-user', 0, 0, 'profil', 9, 0, 0),
+(23, 'Utilitas', 'fas fa-cog', 1, 0, 'utilitas', 8, 0, 0),
 (24, 'Backup Database', 'fas fa-database', 0, 23, 'utilitas/backup', 1, 0, 0),
-(27, 'Pengaturan', 'fas fa-cogs', 0, 0, 'pengaturan', 9, 0, 0),
+(27, 'Pengaturan', 'fas fa-cogs', 0, 0, 'pengaturan', 10, 0, 0),
 (62, 'Pengelola Menu', 'fa fa-bars', 0, 23, 'menu', 3, 0, 0),
 (64, 'CRUD Generator', 'fas fa-edit', 0, 23, 'utilitas/crud_generator', 2, 0, 0),
 (76, 'Data Pelanggan', 'fas fa-user-check', 0, 88, 'pelanggan', 1, 1, 0),
@@ -251,14 +248,17 @@ INSERT INTO `menu` (`id_menu`, `nama_menu`, `icon`, `ada_submenu`, `submenu`, `u
 (87, 'Sales', 'fas fa-user-circle', 1, 0, '#', 2, 0, 0),
 (88, 'Master', 'fas fa-check-circle', 1, 0, '#', 3, 0, 0),
 (89, 'Penjualan', 'fas fa-cart-arrow-down', 1, 0, '#', 4, 0, 0),
-(91, 'Laporan', 'fas fa-book', 1, 0, '#', 6, 0, 0),
+(91, 'Laporan', 'fas fa-book', 1, 0, '#', 7, 0, 0),
 (92, 'Data Marketplace', 'fas fa-store', 0, 88, 'marketplace', 5, 1, 0),
 (93, 'Status Pesanan', 'fas fa-shapes', 0, 88, 'status', 6, 1, 0),
 (94, 'Pembelian', 'fas fa-cart-plus', 1, 0, '#', 5, 0, 0),
 (95, 'Pembelian Baru', 'fas fa-cart-plus', 0, 94, 'pembelian/create', 1, 0, 0),
 (96, 'Riwayat Pembelian', 'fas fa-cart-plus', 0, 94, 'pembelian', 2, 1, 0),
-(97, 'Laporan Pembelian', 'fas fa-book', 0, 91, 'laporan/pembelian', 1, 0, 0),
-(101, 'Log Aktivitas', 'fas fa-clock', 0, 23, 'utilitas/log_aktivitas', 4, 0, 0);
+(97, 'Laporan Pembelian', 'fas fa-book', 0, 91, 'laporan/pembelian', 2, 0, 0),
+(101, 'Log Aktivitas', 'fas fa-clock', 0, 23, 'utilitas/log_aktivitas', 4, 0, 0),
+(102, 'Penawaran Harga', 'fas fa-hand-holding-usd', 1, 0, '#', 6, 1, 0),
+(103, 'Input Penawaran Baru', 'fas fa-plus', 0, 102, 'penawaran/create', 1, 0, 0),
+(104, 'Riwayat Penawaran', 'fas fa-history', 0, 102, 'penawaran', 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -305,13 +305,29 @@ CREATE TABLE `pembelian` (
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `pembelian`
+-- Table structure for table `penawaran`
 --
 
-INSERT INTO `pembelian` (`id_pembelian`, `id_user`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`) VALUES
-(1, 0, 1, 2, 'RP0000001', '', '', '', '', '2024-03-19 10:11:12', 27000000, 0, 27000000, 30000000, ''),
-(2, 0, 1, 2, 'RP0000002', '', '', '', '', '2024-03-19 10:09:07', 27000000, 0, 27000000, 30000000, '');
+CREATE TABLE `penawaran` (
+  `id_penawaran` int(11) NOT NULL,
+  `nama_penawaran` varchar(255) NOT NULL,
+  `produk` text NOT NULL,
+  `lampiran` varchar(255) NOT NULL,
+  `keterangan` text NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `penawaran`
+--
+
+INSERT INTO `penawaran` (`id_penawaran`, `nama_penawaran`, `produk`, `lampiran`, `keterangan`, `status`) VALUES
+(2, 'Odit consequat Dolo', 'In tempore itaque c', '423133237_810980791069632_1498107620588971702_n.jpg', 'Quidem facere illo f', 'Penawaran Baru'),
+(3, 'Exercitationem non i', 'Quam saepe aut culpa', 'a57d0f6c-acb4-4bc9-9749-38cd6114647c.jpg', 'Illo enim delectus ', 'Penawaran Baru'),
+(4, 'Exercitationem non i', 'Quam saepe aut culpa', 'a57d0f6c-acb4-4bc9-9749-38cd6114647c1.jpg', 'Illo enim delectus ', 'Penawaran Baru');
 
 -- --------------------------------------------------------
 
@@ -371,11 +387,7 @@ CREATE TABLE `penjualan` (
 --
 
 INSERT INTO `penjualan` (`id_penjualan`, `id_user`, `id_user_edit`, `id_marketplace`, `id_status`, `nomor_invoice`, `no_pesanan`, `nama_pelanggan`, `alamat`, `telepon`, `tanggal`, `tanggal_edit`, `sub_total`, `diskon`, `total`, `bayar`, `keterangan`, `lampiran`, `sl`) VALUES
-(2, 'PTS00001', '', 1, 0, 'RP0000001', '1121', 'Adi', '83822623170', 'Bandung', '2023-12-31 17:00:00', '2024-03-13 10:37:46', 9000000, 0, 9000000, 9000000, '', '', 0),
-(3, 'PTS00001', 'PTS00001', 2, 1, 'RP0000002', '1123', 'Sukmana', '-', '-', '2023-12-31 17:00:00', '2024-03-13 15:22:44', 13500000, 0, 13500000, 13500000, '', '', 0),
-(4, 'PTS00001', 'PTS00001', 1, 1, 'RP0000003', '', '', '', '', '2024-03-13 15:25:44', '2024-03-13 15:26:06', 13500000, 0, 13500000, 14000000, '', '', 0),
-(5, 'PTS00001', '', 1, 1, 'RP0000004', '', '', '', '', '2024-03-19 08:53:56', '2024-03-19 08:54:02', 13500000, 0, 13500000, 14000000, '', '', 0),
-(6, 'PTS00001', '', 1, 1, 'RP0000005', '', '', '', '', '2024-03-19 09:49:32', '2024-03-19 09:49:42', 9000000, 0, 9000000, 9000000, '', '', 0);
+(2, 'PTS00001', 'PTS00001', 1, 1, 'RP0000001', '', '', '', '', '2024-03-21 07:48:44', '2024-03-21 07:50:02', 4510000, 0, 4510000, 4515000, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -401,8 +413,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `id_kategori`, `nama_produk`, `sku`, `harga_modal`, `harga_jual`, `stok`, `satuan`, `gambar`, `keterangan`) VALUES
-(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', '', 8000000, 13500000, 93, 'UNIT', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
-(2, 1, 'Laptop Acer Swift 3', '1122', 2500000, 4500000, 7, 'PCS', 'default.png', '');
+(1, 1, '1 Set Komputer 17-10100F 3060 TI 16GB DDR4', '', 8000000, 13500000, 89, 'UNIT', '20f535c616bbe807a1166e5661b396fd.jpg', '-'),
+(2, 1, 'Laptop Acer Swift 3', '1122', 2500000, 4500000, 5, 'PCS', 'default.png', '');
 
 -- --------------------------------------------------------
 
@@ -570,6 +582,12 @@ ALTER TABLE `pembelian`
   ADD PRIMARY KEY (`id_pembelian`);
 
 --
+-- Indexes for table `penawaran`
+--
+ALTER TABLE `penawaran`
+  ADD PRIMARY KEY (`id_penawaran`);
+
+--
 -- Indexes for table `pengaturan`
 --
 ALTER TABLE `pengaturan`
@@ -625,7 +643,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `akses_role`
 --
 ALTER TABLE `akses_role`
-  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=555;
+  MODIFY `akses_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=585;
 
 --
 -- AUTO_INCREMENT for table `backup`
@@ -637,13 +655,13 @@ ALTER TABLE `backup`
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_detail_pembelian` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_detail_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -655,7 +673,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `log_aktivitas`
 --
 ALTER TABLE `log_aktivitas`
-  MODIFY `id_log_aktivitas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_log_aktivitas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `marketplace`
@@ -667,7 +685,7 @@ ALTER TABLE `marketplace`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
@@ -679,7 +697,13 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `penawaran`
+--
+ALTER TABLE `penawaran`
+  MODIFY `id_penawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pengaturan`
@@ -691,7 +715,7 @@ ALTER TABLE `pengaturan`
 -- AUTO_INCREMENT for table `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `produk`

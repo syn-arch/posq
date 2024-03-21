@@ -114,11 +114,10 @@
                                         <input type="hidden" name="id_produk[]" value="<?= $detail['id_produk'] ?>">
                                         <input type="hidden" name="nama_produk[]" value="<?= $detail['nama_produk'] ?>">
                                         <input type="hidden" name="harga_modal[]" value="<?= $detail['harga_modal'] ?>">
-                                        <input type="hidden" name="harga_jual[]" value="<?= $detail['harga_jual'] ?>">
                                         <td width="35%"><?= $detail['nama_produk'] ?></td>
                                         <td width="15%"><input type="text" class="form-control qty" step="0.1" name="qty[]" autocomplete="off" value="<?= $detail['qty'] ?>" min="0"></td>
                                         <td class="text-right"><input type="text" class="form-control harga_jual" name="harga_jual[]" autocomplete="off" value="<?= number_format($detail['harga_jual'], 0, '', '.') ?>" min="0"></td>
-                                        <td class="text-right" width="20%"><input type="text" name="total_harga[]" readonly class="form-control text-right total-harga" value="<?= number_format($detail['total_harga'], 0, '', '.') ?>"></td>
+                                        <td class="text-right" width="20%"><input type="text" name="total_harga[]" class="form-control text-right total-harga" value="<?= number_format($detail['total_harga'], 0, '', '.') ?>"></td>
                                         <td class="text-right" width="10%"><a class="btn btn-danger hapus-cart"><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 <?php endforeach ?>
@@ -410,11 +409,10 @@
                         <input type="hidden" name="id_produk[]" value="${data.id_produk}">
                         <input type="hidden" name="nama_produk[]" value="${data.nama_produk}">
                         <input type="hidden" name="harga_modal[]" value="${data.harga_modal}">
-                        <input type="hidden" name="harga_jual[]" value="${data.harga_jual}">
                         <td width="35%">${data.nama_produk}</td>
                         <td width="15%"><input type="text" class="form-control qty" name="qty[]" autocomplete="off" value="1" step="0.1" min="0"></td>
                         <td class="text-right"><input type="text" class="form-control harga_jual" name="harga_jual[]" autocomplete="off" value="${rupiah(data.harga_jual)}" min="0"></td>
-                        <td class="text-right" width="20%"><input type="text" name="total_harga[]" readonly class="form-control text-right total-harga" value="${rupiah(data.harga_jual)}" ></td>
+                        <td class="text-right" width="20%"><input type="text" name="total_harga[]" class="form-control text-right total-harga" value="${rupiah(data.harga_jual)}" ></td>
                         <td class="text-right" width="10%"><a class="btn btn-danger hapus-cart"><i class="fa fa-trash"></i></a></td>
                     </tr>
                 `);
@@ -423,6 +421,16 @@
                     $(document).find('.qty').focus();
                 });
             }
+        });
+
+        $(document).on('keyup change', '.total-harga', function() {
+            $(this).val(rupiah($(this).val()));
+            const qty = clean_number($(this).closest('tr').find('.qty').val());
+            const total_harga = clean_number($(this).val());
+
+            $(this).closest('tr').find('.harga_jual').val(rupiah(Math.round(total_harga / qty)));
+
+            get_subtotal();
         });
 
         $(document).on('keyup change', '.qty', function() {

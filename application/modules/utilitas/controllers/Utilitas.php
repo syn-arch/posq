@@ -26,6 +26,8 @@ class utilitas extends MX_Controller
     {
         $data['judul'] = "Log Aktivitas";
         $this->db->join('user', 'id_user');
+
+        $this->db->order_by('id_log_aktivitas', 'DESC');
         $data['log_aktivitas'] = $this->db->get('log_aktivitas')->result_array();
 
         $this->load->view('templates/header', $data, FALSE);
