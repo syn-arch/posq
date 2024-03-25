@@ -3,6 +3,9 @@
         <div class="pull-left">
             <h4 class="box-title"><?php echo $judul ?></h4>
         </div>
+        <div class="pull-right">
+            <a href="<?= base_url('laporan/export_persediaan') ?>?dari=<?= $this->input->get('dari') ?>&sampai=<?= $this->input->get('sampai') ?>" class="btn btn-success no-print"><i class="fa fa-sign-out"></i> Export</a>
+        </div>
     </div>
     <div class="box-body">
         <div class="row no-print">
@@ -10,11 +13,11 @@
                 <form action="">
                     <div class="form-group">
                         <label for="">Dari Tanggal</label>
-                        <input type="date" name="dari" id="dari" class="form-control">
+                        <input type="date" name="dari" id="dari" value="<?= $this->input->get('dari') ?>" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="">Sampai Tanggal</label>
-                        <input type="date" name="sampai" id="dari" class="form-control">
+                        <input type="date" name="sampai" id="sampai" value="<?= $this->input->get('sampai') ?>" class="form-control">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>

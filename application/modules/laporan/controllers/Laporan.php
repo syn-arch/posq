@@ -264,6 +264,54 @@ class laporan extends MX_Controller
         $this->load->view('templates/footer', $data, FALSE);
     }
 
+    public function export_persediaan()
+    {
+        $dari = $this->input->get('dari');
+        $sampai = $this->input->get('sampai');
+
+        $laporan = $this->laporan_model->get_persediaan($dari, $sampai);
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Tanggal')
+            ->setCellValue('B1', 'No Pesanan')
+            ->setCellValue('C1', 'Nama Produk')
+            ->setCellValue('D1', 'Qty')
+            ->setCellValue('E1', 'Total');
+        // Miscellaneous glyphs, UTF-8
+        $i = 2;
+        $total = 0;
+        foreach ($laporan as $row) {
+
+            if (isset($row['id_penjualan'])) {
+                $total -= $row['qty'];
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $i, $row['tanggal'])
+                    ->setCellValue('B' . $i, $row['nomor_invoice'])
+                    ->setCellValue('C' . $i, $row['nama_produk'])
+                    ->setCellValue('E' . $i, "- " . $row['qty'])
+                    ->setCellValue('D' . $i, $total);
+            } else {
+                $total += $row['qty'];
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $i, $row['tanggal'])
+                    ->setCellValue('B' . $i, $row['nomor_invoice'])
+                    ->setCellValue('C' . $i, $row['nama_produk'])
+                    ->setCellValue('E' . $i, "+ " . $row['qty'])
+                    ->setCellValue('D' . $i, $total);
+            }
+
+
+            $i++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Laporan Persediaan.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+    }
+
     public function export_per_pelanggan($dari = '', $sampai = '', $id_outlet = '')
     {
         if ($dari != '') {

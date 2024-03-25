@@ -23,6 +23,9 @@ $access = $this->db->get('akses_role')->row_array();
                 <div class="pull-right">
                     <div class="box-title">
                         <?php if ($access['d']) : ?>
+                            <a href="#update-status" data-toggle="modal" class="btn btn-info update_status"><i class="fa fa-check"></i> Update Status</a>
+                        <?php endif ?>
+                        <?php if ($access['d']) : ?>
                             <a href="javascrip:void(0)" class="btn btn-danger hapus_bulk"><i class="fa fa-trash"></i> Hapus Terpilih</a>
                         <?php endif ?>
                         <?php if ($access['c']) : ?>
@@ -58,8 +61,89 @@ $access = $this->db->get('akses_role')->row_array();
         </div>
     </div>
 
+    <div class="modal fade" id="update-status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLongTitle">Ubah Status</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-update-status">
+                        <div class="form-group">
+                            <div class="input-group input-group">
+                                <select name="id_status" id="id_status" class="form-control satatus">
+                                    <option value="Penawaran Baru">Penawaran Baru</option>
+                                    <option value="Follow Up">Follow Up</option>
+                                    <option value="Deal">Deal</option>
+                                </select>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-shapes"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
         $(document).ready(function() {
+
+            $(".form-update-status").submit(function(e) {
+                e.preventDefault();
+
+                var data = [];
+
+                $(':checkbox:checked').each(function(i) {
+                    data[i] = $(this).val();
+                });
+
+                if (data.length == 0) {
+                    swal({
+                        title: "Gagal!",
+                        text: 'Anda Belum Memilih Data',
+                        icon: "error"
+                    })
+                    return
+                }
+
+                swal({
+                    title: "Apakah anda yakin?",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajax({
+                            method: "post",
+                            url: base_url + table_name + '/update_bulk',
+                            data: {
+                                data: data,
+                                id_status: $('.satatus').val()
+                            },
+                            success: function(data) {
+                                swal('Berhasil', 'Data berhail diubah', 'success');
+
+                                setTimeout(() => {
+                                    window.location.href = base_url + table_name
+                                }, 1000);
+                            }
+                        })
+
+                    }
+                });
+            })
 
             let up = '<?php echo $access['u'] ?>';
             let del = '<?php echo $access['d'] ?>';
@@ -113,7 +197,7 @@ $access = $this->db->get('akses_role')->row_array();
                         }, {
                             "data": "lampiran",
                             "render": function(data, type, row, meta) {
-                                return '<a download href="<?php echo base_url('assets/img/penawaran/') ?>' + data + '" target="_blank">Download</a>';
+                                return '<img src="<?php echo base_url('assets/img/penawaran/') ?>' + data + '" width="100">';
                             }
                         }, {
                             "data": "keterangan"

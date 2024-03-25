@@ -65,6 +65,17 @@ class Penawaran extends MX_Controller
         }
     }
 
+    public function update_bulk()
+    {
+        cek_akses('u');
+
+        foreach ($_POST['data'] as $row) {
+            $this->db->set('status', $_POST['id_status']);
+            $this->db->where('id_penawaran', $row);
+            $this->db->update('penawaran');
+        }
+    }
+
     public function create()
     {
         cek_akses('c');
